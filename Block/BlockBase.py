@@ -5,13 +5,10 @@ class BlockBase(object):
   """Base class for block rules.
 
   Attributes:
-    __raw: Raw block markup
-    data: Data field that may be used to represent the block object.
+    raw: Raw block markup
   """
 
-  __raw = ''
-
-  data = None
+  raw = ''
 
   def __init__(self, raw_text):
     """Initializes a block object.
@@ -19,7 +16,7 @@ class BlockBase(object):
     Args:
       raw_text: Raw text that supposedly corresponds to a block of this type.
     """
-    self.__raw = raw_text
+    self.raw = raw_text
 
   @staticmethod
   def is_complete(s):
@@ -66,4 +63,4 @@ class BlockBase(object):
       Text representation of the block.
       str
     """
-    return self.__raw
+    return self.raw
