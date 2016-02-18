@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 class Environment(object):
-  CURRENT_HEADER_LEVEL = 'block_current_header_level'
+  CURRENT_HEADER_LEVEL = 'block_current_header_level_counter'
+  CURRENT_IMAGE = 'image_counter'
   TABLE_OF_CONTENTS = 'table_of_contents'
 
   __all_environments = None

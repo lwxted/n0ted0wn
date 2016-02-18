@@ -7,3 +7,8 @@ class Util(object):
     return '\\{0}'.format(n)
 
   f = format_inline_key
+
+  @staticmethod
+  def html_attribute(s):
+    # FIXME
+    return s

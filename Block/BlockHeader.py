@@ -5,7 +5,6 @@ from n0ted0wn.Block.BlockBase import BlockBase
 from n0ted0wn.Storage.EnvironmentStorage import Environment
 from n0ted0wn.Util import Util
 
-
 def renderer_blog_post(header_obj, storage, env_storage):
   header_counter = env_storage.get(
     Environment.CURRENT_HEADER_LEVEL, BlockHeaderCounter())

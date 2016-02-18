@@ -43,5 +43,10 @@ class BlockCodeStdEnv(BlockStdEnv):
     'blog_post' : renderer_blog_post
   }
 
+  def __init__(self, raw, params, content):
+    super(BlockCodeStdEnv, self).__init__(raw, params, content)
+    self.lang = ''
+
   def _transform_args(self):
-    self.lang = self._params[0] if self._params else ''
+    if self._params:
+      self.lang = self._params[0]
