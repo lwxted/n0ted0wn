@@ -2,23 +2,22 @@
 # -*- coding: utf-8 -*-
 
 from n0ted0wn.Block.BlockBase import BlockBase
+from n0ted0wn.Style import Style
 
 class BlockParser(object):
-  def __init__(self, style, text_storage, env_storage, indent_level=0):
-    self.style = style
-    self.text_storage = text_storage
-    self.env_storage = env_storage
+  def __init__(self, style, indent_level=0):
+    self.style = Style.with_identifier(style)
     self.indent_level = indent_level
 
-  def convert(self, markup):
+  def parse(self, markup):
     # Dedent first
     if self.indent_level != 0:
       markup_lines = markup.split('\n')
+      should_start_with = ' ' * self.indent_level
       for line in markup_lines:
-        for c in line[0:self.indent_level]:
-          if c != ' ':
-            # Block not standardized, thus we don't even attempt to convert
-            return markup
+        if line.strip() and not line.startswith(should_start_with):
+          # Block not standardized, thus we don't even attempt to convert
+          return [BlockBase(markup)]
       markup = '\n'.join(line[self.indent_level:] for line in markup_lines)
 
     blocks_raw = markup.split('\n\n')
@@ -61,22 +60,11 @@ class BlockParser(object):
             break
           block_raw += '\n\n' + next_block
           match_obj = matched_block_rule.parse(block_raw)
-          if match_obj is not BlockBase.NOT_COMPLETE:
+          if match_obj is None:
+            break
+          elif match_obj is not BlockBase.NOT_COMPLETE:
             block_completed = True
             break
         blocks_processed.append(\
           match_obj if block_completed else BlockBase(block_raw))
-
-    blocks_rendered = []
-
-    # For each processed block
-    for block in blocks_processed:
-      rendered = block.render(
-        self.style._identifier, self.text_storage, self.env_storage)
-      for inline_rule_cls in self.style.inline_rules_for_block_rule(
-        block.__class__):
-        rendered = inline_rule_cls.render(
-          rendered, self.style, self.text_storage, self.env_storage)
-      blocks_rendered.append(self.text_storage.recover(rendered).strip())
-
-    return '\n'.join(blocks_rendered)
+    return blocks_processed

@@ -19,7 +19,7 @@ class BlockStdEnv(BlockBase):
     self._params = params
 
   def _transform_args(self):
-    pass
+    return self
 
   @classmethod
   def parse(cls, raw):
@@ -37,5 +37,4 @@ class BlockStdEnv(BlockBase):
       return BlockBase.NOT_COMPLETE
     last_line_break = raw.rfind('\n')
     obj = cls(raw, args[1:], raw[first_line_break + 1:last_line_break])
-    obj._transform_args()
-    return obj
+    return obj._transform_args()

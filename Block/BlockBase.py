@@ -47,8 +47,8 @@ class BlockBase(object):
       Text representation of the block.
       str
     """
-    if style not in self._renderers:
+    if self.__class__ is BlockBase or style not in self._renderers:
       return self.raw
     return self._renderers[style](self, storage, env_storage)
 
-BlockBase.NOT_COMPLETE = BlockBase('')
+BlockBase.NOT_COMPLETE = BlockBase(None)

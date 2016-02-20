@@ -2,52 +2,41 @@
 # -*- coding: utf-8 -*-
 
 from n0ted0wn.converter import convert
+from n0ted0wn.Util.Identifier import StyleId
 
 if __name__ == '__main__':
   print convert("""
-== test
 
-# Only
+{ol}
+1. This is to demonstrate how we'll approach this list block
+2. There can be one-line strings
+3. Or multiline
+   strings
+4. Or multiple
 
-```
-only
-a
-test
-`
+   paragraphs
+5. Or even blocks within blocks! Like this:
 
-test
-```
+   {img}
+   https://upload.wikimedia.org/wikipedia/commons/a/ae/Facebook_Headquarters_Entrance_Sign_Menlo_Park.jpg
+   Seriously amazing!
+   {img}
 
-Of course this is only a test.
+   ```
+   And other blocks
 
-Don't take it too seriously...
-For real....
+   Like this!!
+   ```
+6. And finally, another list block within this!
 
-{img:nonum}
-url: http://www.google.com/a.png
-alt: Some alt
-desc: Some description __a__
-{img}
+   {ol}
+   1. Like this 1
+   2. Like this 2
+   {ol}
+{ol}
 
-{img}
-http://www.google.com/a.png
-Some description
-{img}
-
-{code}
-Does this even work??
-{code}
-
-{code:c}
-How about this?
-
-OR this crazy shit?
-
-```
-d
-```
+The only way we know that we are out is by looking at the indentation that we
+are actually out.
 
 
-asdgas
-{code}
-""", 'blog_post')
+""", StyleId.BLOG_POST)

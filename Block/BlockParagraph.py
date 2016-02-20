@@ -3,7 +3,7 @@
 
 from n0ted0wn.Block.BlockBase import BlockBase
 from n0ted0wn.Util import Util
-
+from n0ted0wn.Util.Identifier import StyleId
 
 def renderer_blog_post(p_obj, storage, env_storage):
   return """<p>{0}</p>""".format(Util.f(storage.insert(p_obj.raw)))
@@ -11,7 +11,7 @@ def renderer_blog_post(p_obj, storage, env_storage):
 
 class BlockParagraph(BlockBase):
   _renderers = {
-    'blog_post' : renderer_blog_post
+    StyleId.BLOG_POST : renderer_blog_post
   }
 
   def __init__(self, raw):

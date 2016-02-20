@@ -48,6 +48,8 @@ class StyleBase(object):
 
   @classmethod
   def inline_rules_for_block_rule(cls, block_rule):
+    if block_rule is BlockBase:
+      return []
     if cls.__intn_block_inline_rules_mapping is None:
       cls.__intn_block_inline_rules_mapping = dict(cls.block_inline_rules())
     return cls.__intn_block_inline_rules_mapping[block_rule]

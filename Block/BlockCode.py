@@ -3,6 +3,7 @@
 
 from n0ted0wn.Block.BlockBase import BlockBase
 from n0ted0wn.Block.BlockStdEnv import BlockStdEnv
+from n0ted0wn.Util.Identifier import StyleId
 from n0ted0wn.Util import Util
 
 def renderer_blog_post(code_obj, storage, env_storage):
@@ -13,7 +14,7 @@ def renderer_blog_post(code_obj, storage, env_storage):
 
 class BlockCode(BlockBase):
   _renderers = {
-    'blog_post' : renderer_blog_post
+    StyleId.BLOG_POST : renderer_blog_post
   }
 
   def __init__(self, raw, lang, content):
@@ -40,7 +41,7 @@ class BlockCodeStdEnv(BlockStdEnv):
   _block_type = 'code'
 
   _renderers = {
-    'blog_post' : renderer_blog_post
+    StyleId.BLOG_POST : renderer_blog_post
   }
 
   def __init__(self, raw, params, content):
@@ -50,3 +51,4 @@ class BlockCodeStdEnv(BlockStdEnv):
   def _transform_args(self):
     if self._params:
       self.lang = self._params[0]
+    return self

@@ -13,6 +13,8 @@ all_styles = [
 ]
 
 class Style(object):
+  BLOG_POST = 'style_blog_post'
+
   @classmethod
   def with_identifier(cls, identifier):
     assert identifier in cls.__all_style_mapping()

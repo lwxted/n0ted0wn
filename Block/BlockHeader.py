@@ -4,6 +4,7 @@
 from n0ted0wn.Block.BlockBase import BlockBase
 from n0ted0wn.Storage.EnvironmentStorage import Environment
 from n0ted0wn.Util import Util
+from n0ted0wn.Util.Identifier import StyleId
 
 def renderer_blog_post(header_obj, storage, env_storage):
   header_counter = env_storage.get(
@@ -44,7 +45,7 @@ class BlockHeaderCounter(object):
 
 class BlockHeader(BlockBase):
   _renderers = {
-    'blog_post' : renderer_blog_post
+    StyleId.BLOG_POST : renderer_blog_post
   }
 
   def __init__(self, raw, numbered, level, title):
