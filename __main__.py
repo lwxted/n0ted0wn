@@ -35,6 +35,34 @@ if __name__ == '__main__':
    {ol}
 {ol}
 
+{ul}
+* This is to demonstrate how we'll approach this list block
+* There can be one-line strings
+* Or multiline
+  strings
+* Or multiple
+
+  paragraphs
+* Or even blocks within blocks! Like this:
+
+  {img}
+  https://upload.wikimedia.org/wikipedia/commons/a/ae/Facebook_Headquarters_Entrance_Sign_Menlo_Park.jpg
+  Seriously amazing!
+  {img}
+
+  ```
+  And other blocks
+
+  Like this!!
+  ```
+* And finally, another list block within this!
+
+  {ol}
+  1. Like this 1
+  2. Like this 2
+  {ol}
+{ul}
+
 The only way we know that we are out is by looking at the indentation that we
 are actually out.
 

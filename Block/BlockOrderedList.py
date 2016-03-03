@@ -18,6 +18,38 @@ def renderer_blog_post(list_obj, storage, env_storage):
   return ol_markup.format(list_obj.start_index, '\n'.join(li_markups))
 
 class BlockOrderedListStdEnv(BlockStdEnv):
+  """
+  Implements parsing for the following block format.
+
+  {ol}
+  1. This is to demonstrate how we'll parse this list block
+  2. There can be one-line strings
+  3. Or multiline
+     strings
+  4. Or multiple
+
+     paragraphs
+  5. Or even blocks within blocks! Like this:
+
+     {img}
+     https://upload.wikimedia.org/wikipedia/commons/a/ae/Facebook_Headquarters_Entrance_Sign_Menlo_Park.jpg
+     Seriously amazing!
+     {img}
+
+     ```
+     And other blocks
+
+     Like this!!
+     ```
+  6. And finally, another list block within this!
+
+     {ol}
+     1. Like this 1
+     2. Like this 2
+     {ol}
+  {ol}
+  """
+
   _block_type = 'ol'
 
   _renderers = {

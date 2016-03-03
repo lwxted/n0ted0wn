@@ -13,6 +13,20 @@ def renderer_blog_post(code_obj, storage, env_storage):
 
 
 class BlockCode(BlockBase):
+  """
+  Implements parsing for the following block formats.
+
+  1. Specify only the code block
+  ```
+  code_content
+  ```
+
+  2. Specify the code block + the language
+  ```code_lang
+  code_content
+  ```
+  """
+
   _renderers = {
     StyleId.BLOG_POST : renderer_blog_post
   }
@@ -30,7 +44,7 @@ class BlockCode(BlockBase):
     if raw.strip()[-4:] != '\n```':
       return BlockBase.NOT_COMPLETE
     first_line_break_index = raw_stripped.find('\n')
-    lang = raw_stripped[3:first_line_break_index]
+    lang = raw_stripped[3:first_line_break_index].strip()
     content = raw_stripped[first_line_break_index + 1:-4]
     if not content:
       return None
@@ -38,6 +52,20 @@ class BlockCode(BlockBase):
 
 
 class BlockCodeStdEnv(BlockStdEnv):
+  """
+  Implements parsing for the following block formats.
+
+  1. Specify only the code block
+  {code}
+  code_content
+  {code}
+
+  2. Specify the code block + the language
+  {code:code_lang}
+  code_content
+  {code}
+  """
+
   _block_type = 'code'
 
   _renderers = {

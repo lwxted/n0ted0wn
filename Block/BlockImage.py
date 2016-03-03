@@ -94,7 +94,7 @@ class BlockImageStdEnv(BlockStdEnv):
      {img}
 
   3. Specify whether or not the image should be numbered.
-     {img:#}
+     {img:no#}
      path/to/image.png
      Description that must fit into one line.
      {img}
