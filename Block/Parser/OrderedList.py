@@ -1,23 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from n0ted0wn.Block.BlockStdEnv import BlockStdEnv
-from n0ted0wn.Util.Identifier import StyleId
+from n0ted0wn.Block.Parser.StdEnv import StdEnv
 
-def renderer_blog_post(list_obj, storage, env_storage):
-  from n0ted0wn.Parser.BlockRenderer import BlockRenderer
-
-  li_markups = []
-  ol_markup = """<ol start="{0}">{1}</ol>"""
-
-  for block_objs in list_obj.parsed_blocks_list:
-    li_markup = """<li>{0}</li>""".format(
-      BlockRenderer(StyleId.BLOG_POST, storage, env_storage).render(block_objs))
-    li_markups.append(li_markup)
-
-  return ol_markup.format(list_obj.start_index, '\n'.join(li_markups))
-
-class BlockOrderedListStdEnv(BlockStdEnv):
+class OrderedListStdEnv(StdEnv):
   """
   Implements parsing for the following block format.
 
@@ -52,12 +38,8 @@ class BlockOrderedListStdEnv(BlockStdEnv):
 
   _block_type = 'ol'
 
-  _renderers = {
-    StyleId.BLOG_POST : renderer_blog_post
-  }
-
-  def __init__(self, raw, params, content):
-    super(BlockOrderedListStdEnv, self).__init__(raw, params, content)
+  def __init__(self, raw, params, content, style_cls):
+    super(OrderedListStdEnv, self).__init__(raw, params, content, style_cls)
     self.start_index = 0
     self.parsed_blocks_list = []
 
@@ -84,10 +66,10 @@ class BlockOrderedListStdEnv(BlockStdEnv):
           l[len(counter_marker):]]))
         current_index += 1
 
-    from n0ted0wn.Parser.BlockParser import BlockParser
+    from n0ted0wn.Block.Parser import Parser
 
     for (index, lines) in grouped_lines:
       self.parsed_blocks_list.append(
-        BlockParser(StyleId.DEFAULT, len(str(index)) + 2)
+        Parser(self.style_cls, len(str(index)) + 2)
         .parse('\n'.join(lines)))
     return self

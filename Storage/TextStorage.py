@@ -9,8 +9,9 @@ class TextStorage(object):
   __data = {}
   __next_index = 0
 
-  def retrieve(self, index):
-    return self.__data.pop(index)
+  def get(self, index):
+    assert index in self.__data
+    return self.__data[index]
 
   def insert(self, s):
     assert isinstance(s, str)
@@ -19,11 +20,27 @@ class TextStorage(object):
     self.__next_index += 1
     return index
 
-  def recover(self, s):
-    for n in self.__data.keys():
+  def update(self, n, s):
+    assert isinstance(n, int) and isinstance(s, str) and n in self.__data
+    self.__data[n] = s
+
+  def recover(self, s, storage_keys=None):
+    """Attempt to replace any placeholder substring with its original string. If
+    `storage_keys` is specified, it will only look into the specified keys.
+
+    Args:
+      s: String to recover
+      storage_keys: Specific storage keys to look into (default: {None})
+
+    Returns:
+      Recovered string
+      str
+    """
+    if storage_keys is None:
+      storage_keys = self.__data.keys()
+    for n in storage_keys:
       key = Util.f(n)
       if key not in s:
         continue
-      s = s.replace(key, self.__data[n])
-      del self.__data[n]
+      s = s.replace(key, self.recover(self.__data.pop(n)))
     return s

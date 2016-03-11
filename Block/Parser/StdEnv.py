@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from n0ted0wn.Block.BlockBase import BlockBase
+from n0ted0wn.Block.Parser.Base import Base
 
-class BlockStdEnv(BlockBase):
-  """BlockStdEnv parases the block of a standardized format as follows:
+class StdEnv(Base):
+  """StdEnv parases the block of a standardized format as follows:
 
   {block_type:param1:param2}
   Content lines...
@@ -13,16 +13,17 @@ class BlockStdEnv(BlockBase):
 
   _block_type = ''
 
-  def __init__(self, raw, params, content):
-    super(BlockStdEnv, self).__init__(raw)
+  def __init__(self, raw, params, content, style_cls):
+    super(StdEnv, self).__init__(raw, style_cls)
     self.content = content
     self._params = params
+    self.style_cls = style_cls
 
   def _transform_args(self):
     return self
 
   @classmethod
-  def parse(cls, raw):
+  def parse(cls, raw, style_cls):
     raw = raw.strip()
     first_line_break = raw.find('\n')
     if first_line_break == -1:
@@ -34,7 +35,8 @@ class BlockStdEnv(BlockBase):
     if args[0] != cls._block_type:
       return None
     if not raw.endswith('\n{' + cls._block_type + '}'):
-      return BlockBase.NOT_COMPLETE
+      return Base.NOT_COMPLETE
     last_line_break = raw.rfind('\n')
-    obj = cls(raw, args[1:], raw[first_line_break + 1:last_line_break])
+    obj = cls(
+      raw, args[1:], raw[first_line_break + 1:last_line_break], style_cls)
     return obj._transform_args()

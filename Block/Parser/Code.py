@@ -1,18 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from n0ted0wn.Block.BlockBase import BlockBase
-from n0ted0wn.Block.BlockStdEnv import BlockStdEnv
-from n0ted0wn.Util.Identifier import StyleId
-from n0ted0wn.Util import Util
+from n0ted0wn.Block.Parser.Base import Base
+from n0ted0wn.Block.Parser.StdEnv import StdEnv
 
-def renderer_blog_post(code_obj, storage, env_storage):
-  lang = ' lang="{0}"'.format(code_obj.lang) if code_obj.lang else ''
-  return """<pre><code{0}>{1}</code></pre>"""\
-    .format(lang, Util.f(storage.insert(code_obj.content)))
-
-
-class BlockCode(BlockBase):
+class Code(Base):
   """
   Implements parsing for the following block formats.
 
@@ -26,32 +18,27 @@ class BlockCode(BlockBase):
   code_content
   ```
   """
-
-  _renderers = {
-    StyleId.BLOG_POST : renderer_blog_post
-  }
-
-  def __init__(self, raw, lang, content):
-    super(BlockCode, self).__init__(raw)
+  def __init__(self, raw, lang, content, style_cls):
+    super(Code, self).__init__(raw, style_cls)
     self.lang = lang
     self.content = content
 
   @classmethod
-  def parse(cls, raw):
+  def parse(cls, raw, style_cls):
     raw_stripped = raw.strip()
     if raw_stripped[0:3] != '```':
       return None
     if raw.strip()[-4:] != '\n```':
-      return BlockBase.NOT_COMPLETE
+      return Base.NOT_COMPLETE
     first_line_break_index = raw_stripped.find('\n')
     lang = raw_stripped[3:first_line_break_index].strip()
     content = raw_stripped[first_line_break_index + 1:-4]
     if not content:
       return None
-    return BlockCode(raw, lang, content)
+    return Code(raw, lang, content, style_cls)
 
 
-class BlockCodeStdEnv(BlockStdEnv):
+class CodeStdEnv(StdEnv):
   """
   Implements parsing for the following block formats.
 
@@ -68,12 +55,8 @@ class BlockCodeStdEnv(BlockStdEnv):
 
   _block_type = 'code'
 
-  _renderers = {
-    StyleId.BLOG_POST : renderer_blog_post
-  }
-
-  def __init__(self, raw, params, content):
-    super(BlockCodeStdEnv, self).__init__(raw, params, content)
+  def __init__(self, raw, params, content, style_cls):
+    super(CodeStdEnv, self).__init__(raw, params, content, style_cls)
     self.lang = ''
 
   def _transform_args(self):

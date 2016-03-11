@@ -2,10 +2,14 @@
 # -*- coding: utf-8 -*-
 
 from n0ted0wn.converter import convert
-from n0ted0wn.Util.Identifier import StyleId
 
 if __name__ == '__main__':
   print convert("""
+# Test only!
+
+## Test here
+
+== Or here?
 
 {ol}
 1. This is to demonstrate how we'll approach this list block
@@ -67,4 +71,4 @@ The only way we know that we are out is by looking at the indentation that we
 are actually out.
 
 
-""", StyleId.BLOG_POST)
+""", 'style_blog_post')

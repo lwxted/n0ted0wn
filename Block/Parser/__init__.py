@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from n0ted0wn.Block.BlockBase import BlockBase
-from n0ted0wn.Style import Style
+from __future__ import absolute_import
+from n0ted0wn.Block.Parser.Base import Base
 
-class BlockParser(object):
-  def __init__(self, style, indent_level=0):
-    self.style = Style.with_identifier(style)
+class Parser(object):
+  def __init__(self, style_cls, indent_level=0):
+    self.style_cls = style_cls
     self.indent_level = indent_level
 
   def parse(self, markup):
@@ -17,7 +17,7 @@ class BlockParser(object):
       for line in markup_lines:
         if line.strip() and not line.startswith(should_start_with):
           # Block not standardized, thus we don't even attempt to convert
-          return [BlockBase(markup)]
+          return [Base(markup, self.style_cls)]
       markup = '\n'.join(line[self.indent_level:] for line in markup_lines)
 
     blocks_raw = markup.split('\n\n')
@@ -36,16 +36,16 @@ class BlockParser(object):
       match_obj = None
       matched_block_rule = None
 
-      for block_rule in self.style.block_rules():
-        match_obj = block_rule.parse(block_raw)
+      for block_rule in self.style_cls.block_rules():
+        match_obj = block_rule.parse(block_raw, self.style_cls)
         if match_obj is not None:
           matched_block_rule = block_rule
           break
 
       if match_obj is None:
         # Treat block as dummy block if no block rule matches.
-        blocks_processed.append(BlockBase(block_raw))
-      elif match_obj is not BlockBase.NOT_COMPLETE:
+        blocks_processed.append(Base(block_raw, self.style_cls))
+      elif match_obj is not Base.NOT_COMPLETE:
         # Append to block list if some block rule matches and is a complete
         # block.
         blocks_processed.append(match_obj)
@@ -59,12 +59,12 @@ class BlockParser(object):
           if next_block is None:
             break
           block_raw += '\n\n' + next_block
-          match_obj = matched_block_rule.parse(block_raw)
+          match_obj = matched_block_rule.parse(block_raw, self.style_cls)
           if match_obj is None:
             break
-          elif match_obj is not BlockBase.NOT_COMPLETE:
+          elif match_obj is not Base.NOT_COMPLETE:
             block_completed = True
             break
         blocks_processed.append(\
-          match_obj if block_completed else BlockBase(block_raw))
+          match_obj if block_completed else Base(block_raw, self.style_cls))
     return blocks_processed
