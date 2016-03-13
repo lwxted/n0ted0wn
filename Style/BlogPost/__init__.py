@@ -3,22 +3,35 @@
 
 from __future__ import absolute_import
 
-from n0ted0wn.Block.Parser.Code import Code, CodeStdEnv
+# Block rules
+from n0ted0wn.Block.Parser.DefinitionNoteWarn import \
+  DefinitionStdEnv, NoteStdEnv, WarnStdEnv
 from n0ted0wn.Block.Parser.Header import Header
 from n0ted0wn.Block.Parser.Image import Image, ImageStdEnv
 from n0ted0wn.Block.Parser.OrderedList import OrderedListStdEnv
 from n0ted0wn.Block.Parser.Paragraph import Paragraph
+from n0ted0wn.Block.Parser.Pre import Pre, PreStdEnv
 from n0ted0wn.Block.Parser.UnorderedList import UnorderedListStdEnv
 
-from n0ted0wn.Inline.InlineBase import InlineBase
-from n0ted0wn.Inline.InlineBold import InlineBold
+# Inline rules
+from n0ted0wn.Inline.Parser.Bold import Bold
+from n0ted0wn.Inline.Parser.BoldItalic import BoldItalic
+from n0ted0wn.Inline.Parser.Code import Code
+from n0ted0wn.Inline.Parser.Del import Del
+from n0ted0wn.Inline.Parser.Italic import Italic
+from n0ted0wn.Inline.Parser.MathInline import MathInline
+from n0ted0wn.Inline.Parser.Newline import Newline
 
-from n0ted0wn.Style.BlogPost.RendererHeader import RendererHeader
-from n0ted0wn.Style.BlogPost.RendererOrderedList import RendererOrderedList
-from n0ted0wn.Style.BlogPost.RendererUnorderedList import RendererUnorderedList
-from n0ted0wn.Style.BlogPost.RendererCode import RendererCode
-from n0ted0wn.Style.BlogPost.RendererImage import RendererImage
-from n0ted0wn.Style.BlogPost.RendererParagraph import RendererParagraph
+# Block renderers
+from n0ted0wn.Style.BlogPost.block_renderers import \
+  RendererDefinition, RendererNote, RendererPre, RendererHeader, \
+  RendererImage, RendererOrderedList, RendererParagraph, \
+  RendererUnorderedList, RendererWarn
+
+# Inline renderers
+from n0ted0wn.Style.BlogPost.inline_renderers import \
+  RendererBold, RendererBoldItalic, RendererCode, RendererDel, RendererItalic, \
+  RendererMathInline, RendererNewline
 
 from n0ted0wn.Style.StyleBase import StyleBase
 
@@ -27,32 +40,67 @@ class StyleBlogPost(StyleBase):
   _identifier = 'style_blog_post'
 
   _default_inline_rules = [
-    InlineBold,
-    InlineBase
+    Code,
+    MathInline,
+    BoldItalic,
+    Bold,
+    Italic,
+    Del,
+    Newline,
   ]
 
   _block_inline_rules = [
     (Header, None),
+    (DefinitionStdEnv, None),
+    (NoteStdEnv, None),
+    (WarnStdEnv, None),
     (OrderedListStdEnv, None),
     (UnorderedListStdEnv, None),
-    (Code, None),
-    (CodeStdEnv, None),
+    (Pre, None),
+    (PreStdEnv, None),
     (Image, None),
     (ImageStdEnv, None),
     (Paragraph, None),
   ]
 
-  _renderers = {
+  _block_renderers = {
     Header : RendererHeader,
     OrderedListStdEnv : RendererOrderedList,
     UnorderedListStdEnv : RendererUnorderedList,
-    Code : RendererCode,
-    CodeStdEnv : RendererCode,
+    Pre : RendererPre,
+    PreStdEnv : RendererPre,
     Image : RendererImage,
     ImageStdEnv : RendererImage,
     Paragraph : RendererParagraph,
+    DefinitionStdEnv : RendererDefinition,
+    NoteStdEnv : RendererNote,
+    WarnStdEnv : RendererWarn,
   }
+
+  _inline_renderers = {
+    Bold : RendererBold,
+    BoldItalic : RendererBoldItalic,
+    Code : RendererCode,
+    Del : RendererDel,
+    Italic : RendererItalic,
+    MathInline : RendererMathInline,
+    Newline : RendererNewline,
+  }
+
+  __escapeTable = [
+    ('&', '&amp;'),   # & must be escaped first.
+    ('<', '&lt;'),
+    ('>', '&gt;'),
+    ('"', '&quot;'),
+    ('\'', '&#x27;'),
+  ]
 
   @staticmethod
   def _final_process(s):
+    """
+    Reference: https://hg.python.org/cpython/file/3.4/Lib/html/__init__.py
+    Replace special characters (&<>'") to HTML-safe sequences.
+    """
+    for (a, b) in StyleBlogPost.__escapeTable:
+      s = s.replace(a, b)
     return s

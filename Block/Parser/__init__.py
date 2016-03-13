@@ -65,6 +65,5 @@ class Parser(object):
           elif match_obj is not Base.NOT_COMPLETE:
             block_completed = True
             break
-        blocks_processed.append(\
-          match_obj if block_completed else Base(block_raw, self.style_cls))
+        blocks_processed.append(match_obj if block_completed else Base(block_raw, self.style_cls))
     return blocks_processed

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from n0ted0wn.Block.Parser.Base import Base as ParserBase
-from n0ted0wn.Block.Renderer.Base import Base as RendererBase
-from n0ted0wn.Inline.InlineBase import InlineBase
+from n0ted0wn.Block.Parser.Base import Base as BlockParserBase
+from n0ted0wn.Block.Renderer.Base import Base as BlockRendererBase
+from n0ted0wn.Inline.Parser.Base import Base as InlineParserBase
+from n0ted0wn.Inline.Renderer.Base import Base as InlineRendererBase
 
 class StyleBase(object):
 
@@ -14,18 +15,23 @@ class StyleBase(object):
   _default_inline_rules = [
     # InlineRuleCls1,
     # InlineRuleCls2,
-    InlineBase
+    InlineParserBase
   ]
 
   """override"""
   _block_inline_rules = [
     # (BlockRuleCls1, None),            # None will assume default inline rules
     # (BlockRuleCls2, [InlineRuleCls2]),
-    (ParserBase, None)
+    (BlockParserBase, None)
   ]
 
   """override"""
-  _renderers = {
+  _block_renderers = {
+    # Renderers
+  }
+
+  """override"""
+  _inline_renderers = {
     # Renderers
   }
 
@@ -65,16 +71,28 @@ class StyleBase(object):
 
   @classmethod
   def inline_rules_for_block_rule(cls, block_rule_cls):
-    if block_rule_cls is ParserBase:
+    if block_rule_cls is BlockParserBase:
       return []
     if cls.__intn_block_inline_rules_mapping is None:
       cls.__intn_block_inline_rules_mapping = dict(cls.block_inline_rules())
     return cls.__intn_block_inline_rules_mapping[block_rule_cls]
 
   @classmethod
-  def renderers_for_block_rule(cls, block_rule_cls):
-    if block_rule_cls is ParserBase and ParserBase not in cls._renderers:
-      return RendererBase
-    assert block_rule_cls in cls._renderers
-    return cls._renderers[block_rule_cls]
+  def renderer_for_block_rule(cls, block_rule_cls):
+    if block_rule_cls is BlockParserBase and \
+      BlockParserBase not in cls._block_renderers:
+      return BlockRendererBase
+    assert block_rule_cls in cls._block_renderers
+    return cls._block_renderers[block_rule_cls]
 
+  @classmethod
+  def renderer_for_inline_rule(cls, inline_rule_cls):
+    if inline_rule_cls is InlineParserBase and \
+      InlineParserBase not in cls._inline_renderers:
+      return InlineRendererBase
+    assert inline_rule_cls in cls._inline_renderers
+    return cls._inline_renderers[inline_rule_cls]
+
+  @classmethod
+  def final_process_func(cls):
+    return cls._final_process

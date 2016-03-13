@@ -25,6 +25,7 @@ class Base(object):
 
     Args:
       raw: Raw text to parse against
+      style_cls: Class of the specified style
 
     Returns:
       None if the given raw text cannot be interpretated as a block of this

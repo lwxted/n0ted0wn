@@ -16,11 +16,6 @@ class Style(object):
   BLOG_POST = 'style_blog_post'
 
   @classmethod
-  def final_process_func(cls, identifier):
-    assert identifier in cls.__all_style_mapping()
-    return cls.__all_style_mapping()[identifier]._final_process
-
-  @classmethod
   def with_identifier(cls, identifier):
     assert identifier in cls.__all_style_mapping()
     return cls.__all_style_mapping()[identifier]

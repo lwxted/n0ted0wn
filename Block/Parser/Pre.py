@@ -4,7 +4,7 @@
 from n0ted0wn.Block.Parser.Base import Base
 from n0ted0wn.Block.Parser.StdEnv import StdEnv
 
-class Code(Base):
+class Pre(Base):
   """
   Implements parsing for the following block formats.
 
@@ -19,7 +19,7 @@ class Code(Base):
   ```
   """
   def __init__(self, raw, lang, content, style_cls):
-    super(Code, self).__init__(raw, style_cls)
+    super(Pre, self).__init__(raw, style_cls)
     self.lang = lang
     self.content = content
 
@@ -35,28 +35,27 @@ class Code(Base):
     content = raw_stripped[first_line_break_index + 1:-4]
     if not content:
       return None
-    return Code(raw, lang, content, style_cls)
+    return Pre(raw, lang, content, style_cls)
 
 
-class CodeStdEnv(StdEnv):
-  """
-  Implements parsing for the following block formats.
+class PreStdEnv(StdEnv):
+  """Implements parsing for the following block formats.
 
   1. Specify only the code block
-  {code}
+  {pre}
   code_content
-  {code}
+  {pre}
 
   2. Specify the code block + the language
-  {code:code_lang}
+  {pre:code_lang}
   code_content
-  {code}
+  {pre}
   """
 
-  _block_type = 'code'
+  _block_type = 'pre'
 
   def __init__(self, raw, params, content, style_cls):
-    super(CodeStdEnv, self).__init__(raw, params, content, style_cls)
+    super(PreStdEnv, self).__init__(raw, params, content, style_cls)
     self.lang = ''
 
   def _transform_args(self):
