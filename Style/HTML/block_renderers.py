@@ -3,7 +3,7 @@
 
 from n0ted0wn.Block.Renderer.Base import Base as RendererBase
 from n0ted0wn.Storage.EnvironmentStorage import Environment
-from n0ted0wn.Style.BlogPost.counters import HeaderCounter, ImageCounter
+from n0ted0wn.Style.HTML.counters import HeaderCounter, ImageCounter
 from n0ted0wn.Util import Util
 
 class RendererPre(RendererBase):
@@ -18,8 +18,9 @@ class RendererHeader(RendererBase):
       Environment.CURRENT_HEADER_LEVEL, HeaderCounter())
     header_counter.advance(obj.level)
 
-    toc = env_storage.get(Environment.TABLE_OF_CONTENTS, list())
-    toc.append(obj)
+    if obj.toc:
+      toc = env_storage.get(Environment.TABLE_OF_CONTENTS, list())
+      toc.append(obj)
 
     counter_span = """<span class="counter section-counter">{0}</span> """\
       .format(header_counter) if obj.numbered else ''

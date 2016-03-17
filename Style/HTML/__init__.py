@@ -23,19 +23,19 @@ from n0ted0wn.Inline.Parser.MathInline import MathInline
 from n0ted0wn.Inline.Parser.Newline import Newline
 
 # Block renderers
-from n0ted0wn.Style.BlogPost.block_renderers import \
+from n0ted0wn.Style.HTML.block_renderers import \
   RendererDefinition, RendererNote, RendererPre, RendererHeader, \
   RendererImage, RendererOrderedList, RendererParagraph, \
   RendererUnorderedList, RendererWarn
 
 # Inline renderers
-from n0ted0wn.Style.BlogPost.inline_renderers import \
+from n0ted0wn.Style.HTML.inline_renderers import \
   RendererBold, RendererBoldItalic, RendererCode, RendererDel, RendererItalic, \
   RendererMathInline, RendererNewline
 
 from n0ted0wn.Style.StyleBase import StyleBase
 
-class StyleBlogPost(StyleBase):
+class StyleHTML(StyleBase):
 
   _identifier = 'style_blog_post'
 
@@ -87,7 +87,7 @@ class StyleBlogPost(StyleBase):
     Newline : RendererNewline,
   }
 
-  __escapeTable = [
+  _escapeTable = [
     ('&', '&amp;'),   # & must be escaped first.
     ('<', '&lt;'),
     ('>', '&gt;'),
@@ -101,6 +101,6 @@ class StyleBlogPost(StyleBase):
     Reference: https://hg.python.org/cpython/file/3.4/Lib/html/__init__.py
     Replace special characters (&<>'") to HTML-safe sequences.
     """
-    for (a, b) in StyleBlogPost.__escapeTable:
+    for (a, b) in StyleHTML._escapeTable:
       s = s.replace(a, b)
     return s

@@ -3,18 +3,20 @@
 
 from __future__ import absolute_import
 from n0ted0wn.Style.StyleBase import StyleBase
-from n0ted0wn.Style.BlogPost import StyleBlogPost
+from n0ted0wn.Style.HTML import StyleHTML
+from n0ted0wn.Style.Diary import StyleDiary
+from n0ted0wn.Style.DiaryPrivate import StyleDiaryPrivate
 
 """Upon the addition of a style class, the style class should be imported and
 added into this array."""
 all_styles = [
   StyleBase,
-  StyleBlogPost
+  StyleHTML,
+  StyleDiary,
+  StyleDiaryPrivate
 ]
 
 class Style(object):
-  BLOG_POST = 'style_blog_post'
-
   @classmethod
   def with_identifier(cls, identifier):
     assert identifier in cls.__all_style_mapping()

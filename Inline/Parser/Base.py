@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import re
+
 class Base(object):
   """Base class for inline rules.
 
@@ -27,3 +29,14 @@ class Base(object):
       representation. Otherwise, returns a list of inline objects.
     """
     return []
+
+class SlashNum(Base):
+  """Created for dealing with our internal transform. (We are replacing stuff
+  with backslash (\\) followed by a number. To prevent accidental
+  transformations, we would like escape them upfront.)
+  """
+
+  @classmethod
+  def parse(cls, raw):
+    return [cls(raw, m.span(), raw[slice(*m.span(0))]) for m in \
+      re.finditer(r'\\[1-9][0-9]*', raw)]

@@ -9,6 +9,11 @@ class StdEnv(Base):
   {block_type:param1:param2}
   Content lines...
   {block_type}
+
+  Or when the block itself is short and not supposed to contain any
+  content, the ending block marker is not required:
+
+  {block_type:param1:param2}
   """
 
   _block_type = ''
@@ -26,17 +31,20 @@ class StdEnv(Base):
   def parse(cls, raw, style_cls):
     raw = raw.strip()
     first_line_break = raw.find('\n')
-    if first_line_break == -1:
-      return None
-    first_line = raw[0:first_line_break]
+    first_line = raw
+    if first_line_break != -1:
+      first_line = raw[0:first_line_break]
     if first_line[0] != '{' or first_line[-1] != '}':
       return None
     args = first_line[1:-1].split(':')
     if args[0] != cls._block_type:
       return None
+    last_line_break = raw.rfind('\n')
+    if first_line_break == -1 and last_line_break == -1:
+      obj = cls(raw, args[1:], '', style_cls)
+      return obj._transform_args()
     if not raw.endswith('\n{' + cls._block_type + '}'):
       return Base.NOT_COMPLETE
-    last_line_break = raw.rfind('\n')
     obj = cls(
       raw, args[1:], raw[first_line_break + 1:last_line_break], style_cls)
     return obj._transform_args()

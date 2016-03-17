@@ -5,9 +5,95 @@ from n0ted0wn.converter import convert
 
 if __name__ == '__main__':
   print convert("""
-# 15462 Lecture notes
+{month:4}
+{day:6}
+# a
 
-![](http://tedli.me/blog/api/uploads/1425582333_pipeline.png)
+{hide}
+This should be a dark SECRET no one can access...
+{hide}
+{day}
+{month}
+
+{toc}
+""", 'style_diary')
+
+# #!/usr/bin/env python
+# # -*- coding: utf-8 -*-
+
+# from n0ted0wn.converter import convert
+
+# if __name__ == '__main__':
+#   print convert("""
+# # Test only!
+
+# ## Test here
+
+# == Or here?
+
+# {ol}
+# 1. __This is to demonstrate how we'll approach this list block!!!__
+# 2. There can be one-line strings
+# 3. Or multiline
+#    strings
+# 4. Or multiple
+
+#    paragraphs
+# 5. Or even blocks within blocks! Like this:
+
+#    {img}
+#    https://upload.wikimedia.org/wikipedia/commons/a/ae/Facebook_Headquarters_Entrance_Sign_Menlo_Park.jpg
+#    Seriously amazing!
+#    {img}
+
+#    ```
+#    And other blocks
+
+#    Like this!!
+#    ```
+# 6. And finally, another list block within this!
+
+#    {ol}
+#    1. Like this 1
+#    2. Like this 2
+#    {ol}
+# {ol}
+
+# {ul}
+# * This is to demonstrate how we'll approach this list block
+# * There can be one-line strings
+# * Or multiline
+#   strings
+# * Or multiple
+
+#   paragraphs
+# * Or even blocks within blocks! Like this:
+
+#   {img}
+#   https://upload.wikimedia.org/wikipedia/commons/a/ae/Facebook_Headquarters_Entrance_Sign_Menlo_Park.jpg
+#   Seriously amazing!
+#   {img}
+
+#   ```
+#   And other blocks
+
+#   Like this!!
+#   ```
+# * And finally, another list block within this!
+
+#   {ol}
+#   1. Like this 1
+#   2. Like this 2
+#   {ol}
+# {ul}
+
+# The only way we know that we are out is by looking at the indentation that we
+# are actually out.
+
+
+# """, 'style_blog_post')
+
+"""![](http://tedli.me/blog/api/uploads/1425582333_pipeline.png)
 
 Vertex operations: lighting, shading, transformation, clipping [Own vertex shader]
 Primitive assembly: make geometry points / lines / triangles
@@ -109,80 +195,4 @@ Also, this is frequently used.
    {note}
 {ol}
 {warn}
-
-""", 'style_blog_post')
-
-# #!/usr/bin/env python
-# # -*- coding: utf-8 -*-
-
-# from n0ted0wn.converter import convert
-
-# if __name__ == '__main__':
-#   print convert("""
-# # Test only!
-
-# ## Test here
-
-# == Or here?
-
-# {ol}
-# 1. __This is to demonstrate how we'll approach this list block!!!__
-# 2. There can be one-line strings
-# 3. Or multiline
-#    strings
-# 4. Or multiple
-
-#    paragraphs
-# 5. Or even blocks within blocks! Like this:
-
-#    {img}
-#    https://upload.wikimedia.org/wikipedia/commons/a/ae/Facebook_Headquarters_Entrance_Sign_Menlo_Park.jpg
-#    Seriously amazing!
-#    {img}
-
-#    ```
-#    And other blocks
-
-#    Like this!!
-#    ```
-# 6. And finally, another list block within this!
-
-#    {ol}
-#    1. Like this 1
-#    2. Like this 2
-#    {ol}
-# {ol}
-
-# {ul}
-# * This is to demonstrate how we'll approach this list block
-# * There can be one-line strings
-# * Or multiline
-#   strings
-# * Or multiple
-
-#   paragraphs
-# * Or even blocks within blocks! Like this:
-
-#   {img}
-#   https://upload.wikimedia.org/wikipedia/commons/a/ae/Facebook_Headquarters_Entrance_Sign_Menlo_Park.jpg
-#   Seriously amazing!
-#   {img}
-
-#   ```
-#   And other blocks
-
-#   Like this!!
-#   ```
-# * And finally, another list block within this!
-
-#   {ol}
-#   1. Like this 1
-#   2. Like this 2
-#   {ol}
-# {ul}
-
-# The only way we know that we are out is by looking at the indentation that we
-# are actually out.
-
-
-# """, 'style_blog_post')
+"""

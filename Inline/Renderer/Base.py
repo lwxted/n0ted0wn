@@ -13,7 +13,7 @@ class Base(object):
   """override"""
   @classmethod
   def _render(cls, inline, final_process):
-    return inline.raw[slice(*inline.pos)]
+    return inline.raw[slice(*inline.span)]
 
   #############################################################################
   #############################################################################

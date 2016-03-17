@@ -3,7 +3,7 @@
 
 from n0ted0wn.Block.Parser.Base import Base as BlockParserBase
 from n0ted0wn.Block.Renderer.Base import Base as BlockRendererBase
-from n0ted0wn.Inline.Parser.Base import Base as InlineParserBase
+from n0ted0wn.Inline.Parser.Base import Base as InlineParserBase, SlashNum
 from n0ted0wn.Inline.Renderer.Base import Base as InlineRendererBase
 
 class StyleBase(object):
@@ -56,6 +56,7 @@ class StyleBase(object):
 
   @classmethod
   def block_inline_rules(cls):
+    cls._default_inline_rules = [SlashNum] + cls._default_inline_rules
     if cls.__intn_block_inline_rules is None:
       cls.__intn_block_inline_rules = [\
         (br, cls._default_inline_rules if ir is None else ir) \
@@ -87,6 +88,8 @@ class StyleBase(object):
 
   @classmethod
   def renderer_for_inline_rule(cls, inline_rule_cls):
+    if inline_rule_cls is SlashNum:
+      return InlineRendererBase
     if inline_rule_cls is InlineParserBase and \
       InlineParserBase not in cls._inline_renderers:
       return InlineRendererBase
