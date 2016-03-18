@@ -22,7 +22,8 @@ class EnvironmentStorage(object):
   """Used for storing global environment variables / states, including but not
   limited to counters. Note that keys must be of str type."""
 
-  __data = {}
+  def __init__(self):
+    self.__data = {}
 
   def get(self, key, default_value):
     assert isinstance(key, str)

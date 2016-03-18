@@ -5,22 +5,18 @@ from n0ted0wn.converter import convert
 
 if __name__ == '__main__':
   print convert(u"""
-{month:4}
-{day:6}
-# a
+{month:3}
+{day:18}
++ The long awaited brand-new blog is actually happening.
 
-{hide}
-This should be a dark SECRET no one can access...
-{hide}
++ Current time is 1:56AM.
 
-{img}
-http://www.google.com/a.png
-{img}
++ Signing out and actually getting some rest for the coming days.
 {day}
 {month}
 
 {toc}
-""", 'style_diary')
+""", u'style_diary')
 
 # #!/usr/bin/env python
 # # -*- coding: utf-8 -*-
