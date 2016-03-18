@@ -4,7 +4,7 @@
 from n0ted0wn.converter import convert
 
 if __name__ == '__main__':
-  print convert("""
+  print convert(u"""
 {month:4}
 {day:6}
 # a
@@ -12,6 +12,10 @@ if __name__ == '__main__':
 {hide}
 This should be a dark SECRET no one can access...
 {hide}
+
+{img}
+http://www.google.com/a.png
+{img}
 {day}
 {month}
 

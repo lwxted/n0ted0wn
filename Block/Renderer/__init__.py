@@ -42,7 +42,7 @@ class Renderer(object):
               prev_segment = inline_processed[proc_index:inline_match.span[0]]
               sliced_segments_list.append(prev_segment)
               inline_rendered = self.style_cls.renderer_for_inline_rule(rule).render(inline_match, final_process)
-              sliced_segments_list.append('\\' + str(self.text_storage.insert(inline_rendered)))
+              sliced_segments_list.append('\\' + unicode(self.text_storage.insert(inline_rendered)))
               proc_index = inline_match.span[1]
             final_segment = inline_processed[proc_index:]
             sliced_segments_list.append(final_segment)

@@ -17,7 +17,7 @@ class HeaderCounter(object):
     highest_level = 5
     while highest_level >= 0 and self.__data[highest_level] == 0:
       highest_level -= 1
-    return '.'.join(str(self.__data[i]) for i in xrange(0, highest_level + 1))
+    return '.'.join(unicode(self.__data[i]) for i in xrange(0, highest_level + 1))
 
 class ImageCounter(object):
   def __init__(self):
@@ -27,4 +27,4 @@ class ImageCounter(object):
     self.__count += 1
 
   def __repr__(self):
-    return str(self.__count)
+    return unicode(self.__count)

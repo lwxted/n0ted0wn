@@ -8,8 +8,8 @@ from n0ted0wn.Util import Util
 
 class RendererPre(RendererBase):
   def _render(self, obj, storage, env_storage):
-    lang = ' lang="{0}"'.format(obj.lang) if obj.lang else ''
-    return """<pre{0}><code>{1}</code></pre>"""\
+    lang = u' lang="{0}"'.format(obj.lang) if obj.lang else ''
+    return u"""<pre{0}><code>{1}</code></pre>"""\
       .format(lang, self._format_key(storage.insert(obj.content)))
 
 class RendererHeader(RendererBase):
@@ -22,10 +22,10 @@ class RendererHeader(RendererBase):
       toc = env_storage.get(Environment.TABLE_OF_CONTENTS, list())
       toc.append(obj)
 
-    counter_span = """<span class="counter section-counter">{0}</span> """\
+    counter_span = u"""<span class="counter section-counter">{0}</span> """\
       .format(header_counter) if obj.numbered else ''
 
-    return """<h{0}>{1}{2}</h{0}>"""\
+    return u"""<h{0}>{1}{2}</h{0}>"""\
       .format(
         obj.level + 1,
         counter_span,
@@ -37,22 +37,22 @@ class RendererImage(RendererBase):
       image_counter = env_storage.get(Environment.CURRENT_IMAGE, ImageCounter())
       image_counter.advance()
 
-    figure_counter_span = """
+    figure_counter_span = u"""
       <div class="image-counter-block">
         <span class="counter image-counter">Figure {0}</span>
       </div>""".format(image_counter) if obj.numbered else ''
 
-    caption_span = """
+    caption_span = u"""
       <span class="caption-text">{0}</span>"""\
       .format(self._format_key(storage.insert(obj.description))) \
       if obj.description else ''
 
-    caption_div = """
+    caption_div = u"""
     <div class="caption">{0}{1}
     </div>""".format(figure_counter_span, caption_span) \
       if figure_counter_span or caption_span else ''
 
-    return """
+    return u"""
   <div class="figure clearfix">
     <div class="img clearfix">
       <img src="{0}" alt="{1}" />
@@ -68,10 +68,10 @@ class RendererOrderedList(RendererBase):
 
     block_renderer = Renderer(self.style_cls, storage, env_storage)
     li_markups = []
-    ol_markup = """<ol start="{0}">{1}</ol>"""
+    ol_markup = u"""<ol start="{0}">{1}</ol>"""
 
     for block_objs in obj.parsed_blocks_list:
-      li_markup = """<li>{0}</li>""".format(block_renderer.render(block_objs))
+      li_markup = u"""<li>{0}</li>""".format(block_renderer.render(block_objs))
       li_markups.append(li_markup)
 
     return ol_markup.format(obj.start_index, '\n'.join(li_markups))
@@ -82,17 +82,17 @@ class RendererUnorderedList(RendererBase):
 
     block_renderer = Renderer(self.style_cls, storage, env_storage)
     li_markups = []
-    ul_markup = """<ul>{0}</ul>"""
+    ul_markup = u"""<ul>{0}</ul>"""
 
     for block_objs in obj.parsed_blocks_list:
-      li_markup = """<li>{0}</li>""".format(block_renderer.render(block_objs))
+      li_markup = u"""<li>{0}</li>""".format(block_renderer.render(block_objs))
       li_markups.append(li_markup)
 
     return ul_markup.format('\n'.join(li_markups))
 
 class RendererParagraph(RendererBase):
   def _render(self, obj, storage, env_storage):
-    return """<p>{0}</p>"""\
+    return u"""<p>{0}</p>"""\
     .format(self._format_key(storage.insert(obj.raw)))
 
 class RendererDefinition(RendererBase):
@@ -101,7 +101,7 @@ class RendererDefinition(RendererBase):
 
     block_renderer = Renderer(self.style_cls, storage, env_storage)
     explanation_markups = block_renderer.render(obj.explanation_blocks_list)
-    return """
+    return u"""
 <div class="definition">
   <div class="title">{0}</div>
   <div class="explanation">
@@ -115,7 +115,7 @@ class RendererNote(RendererBase):
 
     block_renderer = Renderer(self.style_cls, storage, env_storage)
     explanation_markups = block_renderer.render(obj.explanation_blocks_list)
-    return """
+    return u"""
 <div class="note">
   <div class="title">{0}</div>
   <div class="explanation">
@@ -129,7 +129,7 @@ class RendererWarn(RendererBase):
 
     block_renderer = Renderer(self.style_cls, storage, env_storage)
     explanation_markups = block_renderer.render(obj.explanation_blocks_list)
-    return """
+    return u"""
 <div class="warn">
   <div class="title">{0}</div>
   <div class="explanation">

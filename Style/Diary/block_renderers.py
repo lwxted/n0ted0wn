@@ -10,13 +10,13 @@ import datetime
 
 def month_section_id(m):
   month = datetime.date(1900, m, 1).strftime('%B')
-  month_str = str(month)
-  return 'diary_month-' + month_str
+  month_str = unicode(month)
+  return u'diary_month-' + month_str
 
 def day_div_id(m, d):
   month = datetime.date(1900, m, 1).strftime('%B')
-  month_str = str(month)
-  return 'diary_day-{0}-{1}'.format(month_str, d)
+  month_str = unicode(month)
+  return u'diary_day-{0}-{1}'.format(month_str, d)
 
 class RendererMonth(RendererBase):
   def _render(self, obj, storage, env_storage):
@@ -24,13 +24,13 @@ class RendererMonth(RendererBase):
     month_day_counter = env_storage.get(Environment.MONTH_DAY,
       MonthDayCounter())
     month_day_counter.add_month(obj.month)
-    month_str = str(month)
-    month_title = """<div class="month-title"><h1>{0}</h1></div>"""\
+    month_str = unicode(month)
+    month_title = u"""<div class="month-title"><h1>{0}</h1></div>"""\
       .format(month_str)
     from n0ted0wn.Block.Renderer import Renderer
     block_renderer = Renderer(self.style_cls, storage, env_storage)
     days_content = block_renderer.render(obj.content_blocks_list)
-    return """
+    return u"""
 <section class="month" id="{2}">
   {0}
   <div class="days">{1}</div>
@@ -45,7 +45,7 @@ class RendererDay(RendererBase):
     from n0ted0wn.Block.Renderer import Renderer
     block_renderer = Renderer(self.style_cls, storage, env_storage)
     contents = block_renderer.render(obj.content_blocks_list)
-    return """
+    return u"""
 <div class="day">
   <div class="circle"></div>
   <span class="day-counter" id="{2}">{0}</span>
@@ -57,7 +57,7 @@ class RendererDay(RendererBase):
 
 class RendererHide(RendererBase):
   def _render(self, obj, storage, env_storage):
-    return ''
+    return u''
 
 class RendererTOC(RendererBase):
   def _render(self, obj, storage, env_storage):
@@ -66,20 +66,20 @@ class RendererTOC(RendererBase):
       MonthDayCounter())
     for (m, ds) in month_day_counter.get_month_days():
       month = datetime.date(1900, m, 1).strftime('%B')
-      month_str = str(month)
-      li_entry = """
+      month_str = unicode(month)
+      li_entry = u"""
 <li>
   <a href="#{0}">{1}</a>
   <ul>
     {2}
   </ul>
 </li>
-""".format(month_section_id(m), month_str, '\n'.join("""<li>
+""".format(month_section_id(m), month_str, '\n'.join(u"""<li>
   <a href="#{1}">{0}</a>
 </li>""".format(d, day_div_id(m, d)) for d in ds))
       month_lis.append(li_entry)
 
-    return """
+    return u"""
 <div class="toc">
   <ul>{0}</ul>
 </div>""".format('\n'.join(month_lis))

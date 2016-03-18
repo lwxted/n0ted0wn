@@ -14,14 +14,14 @@ class TextStorage(object):
     return self.__data[index]
 
   def insert(self, s):
-    assert isinstance(s, str)
+    assert isinstance(s, unicode)
     index = self.__next_index
     self.__data[self.__next_index] = s
     self.__next_index += 1
     return index
 
   def update(self, n, s):
-    assert isinstance(n, int) and isinstance(s, str) and n in self.__data
+    assert isinstance(n, int) and isinstance(s, unicode) and n in self.__data
     self.__data[n] = s
 
   def recover(self, s, storage_keys=None):

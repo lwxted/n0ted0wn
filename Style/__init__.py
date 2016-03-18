@@ -32,6 +32,6 @@ class Style(object):
   def __all_style_mapping(cls):
     if cls.__all_style_map is None:
       cls.__all_style_map = {
-        style._identifier : style for style in all_styles
+        unicode(style._identifier) : style for style in all_styles
       }
     return cls.__all_style_map

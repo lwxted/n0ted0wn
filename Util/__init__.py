@@ -4,7 +4,7 @@
 class Util(object):
   @staticmethod
   def format_inline_key(n):
-    return '\\{0}'.format(n)
+    return u'\\{0}'.format(n)
 
   f = format_inline_key
 

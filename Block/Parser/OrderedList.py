@@ -56,10 +56,10 @@ class OrderedListStdEnv(StdEnv):
     lines = self.content.split('\n')
     grouped_lines = []
     for l in lines:
-      if l.startswith(' ' * (len(str(current_index)) + 2)) or not l.strip():
+      if l.startswith(' ' * (len(unicode(current_index)) + 2)) or not l.strip():
         grouped_lines[-1][1].append(l)
       else:
-        counter_marker = str(current_index) + '. '
+        counter_marker = unicode(current_index) + '. '
         if not l.startswith(counter_marker):
           return None
         grouped_lines.append((current_index, [' ' * len(counter_marker) + \
@@ -70,6 +70,6 @@ class OrderedListStdEnv(StdEnv):
 
     for (index, lines) in grouped_lines:
       self.parsed_blocks_list.append(
-        Parser(self.style_cls, len(str(index)) + 2)
+        Parser(self.style_cls, len(unicode(index)) + 2)
         .parse('\n'.join(lines)))
     return self
