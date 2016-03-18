@@ -18,6 +18,10 @@ all_styles = [
 
 class Style(object):
   @classmethod
+  def all_identifers(cls):
+    return cls.__all_style_mapping().keys()
+
+  @classmethod
   def with_identifier(cls, identifier):
     assert identifier in cls.__all_style_mapping()
     return cls.__all_style_mapping()[identifier]

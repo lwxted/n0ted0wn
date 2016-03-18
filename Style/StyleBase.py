@@ -9,7 +9,7 @@ from n0ted0wn.Inline.Renderer.Base import Base as InlineRendererBase
 class StyleBase(object):
 
   """override"""
-  _identifier = 'base'
+  _identifier = 'style_base'
 
   """override"""
   _default_inline_rules = [
