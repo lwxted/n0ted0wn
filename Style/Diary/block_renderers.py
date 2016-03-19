@@ -76,7 +76,7 @@ class RendererTOC(RendererBase):
 </li>
 """.format(month_section_id(m), month_str, '\n'.join(u"""<li>
   <a href="#{1}">{0}</a>
-</li>""".format(d, day_div_id(m, d)) for d in ds))
+</li>""".format(d, day_div_id(m, d)) for d in sorted(list(ds))))
       month_lis.append(li_entry)
 
     return u"""

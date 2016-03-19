@@ -23,19 +23,18 @@ class StdEnv(Base):
 
   @classmethod
   def parse(cls, raw, style_cls):
-    raw = raw.strip()
+    raw = raw.lstrip()
+    raw_stripped = raw.rstrip()
     first_line_break = raw.find('\n')
-    if first_line_break == -1:
-      return None
-    first_line = raw[0:first_line_break]
+    first_line = raw[0:first_line_break] if first_line_break != -1 else raw[0:]
     if first_line[0] != '{' or first_line[-1] != '}':
       return None
     args = first_line[1:-1].split(':')
     if args[0] != cls._block_type:
       return None
-    if not raw.endswith('\n{' + cls._block_type + '}'):
+    if not raw_stripped.endswith('\n{' + cls._block_type + '}'):
       return Base.NOT_COMPLETE
-    last_line_break = raw.rfind('\n')
+    last_line_break = raw_stripped.rfind('\n')
     obj = cls(
       raw, args[1:], raw[first_line_break + 1:last_line_break], style_cls)
     return obj._transform_args()

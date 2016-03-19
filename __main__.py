@@ -4,19 +4,16 @@
 from n0ted0wn.converter import convert
 
 if __name__ == '__main__':
-  print convert(u"""
-{month:3}
+  print convert(u"""{month:3}
+
 {day:18}
-+ The long awaited brand-new blog is actually happening.
-
-+ Current time is 1:56AM.
-
-+ Signing out and actually getting some rest for the coming days.
+Only a test...
 {day}
+
 {month}
 
 {toc}
-""", u'style_diary')
+{toc}""", u'style_diary')
 
 # #!/usr/bin/env python
 # # -*- coding: utf-8 -*-
