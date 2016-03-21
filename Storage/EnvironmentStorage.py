@@ -24,6 +24,7 @@ class EnvironmentStorage(object):
 
   def __init__(self):
     self.__data = {}
+    # TODO: self.__options = {}
 
   def get(self, key, default_value):
     assert isinstance(key, str)
