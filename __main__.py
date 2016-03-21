@@ -4,38 +4,14 @@
 from n0ted0wn.converter import convert
 
 if __name__ == '__main__':
-  print convert(u"""
-{trivial}
-```
-Article markup:
+  print convert(u"""{note}
+Take note:
+绝大多数时候，凑合着做完，比完美地半途而废要好。
+绝大多数时候，决定要做就直接开始，比自认为准备充分了再开始要好。
+脑内山水千万里，不如脚下一步。哪怕是跌出去的一步。
 
----
-type:     diary
-title:    #InnoDxMtTeam
-author:   Ted Li
-time:     2016/03/21 10:20:00 UTC+0400
-modified: 2016/03/22 10:20:00 UTC+0400
----
-
-[MetaInfo module]: meta information -->
-  1. parses and understands meta info
-     --> title, author, time, modified, type
-     makes available to post_obj = Post(title...)
-
-[HTMLGathering module]: type -->
-  1. gather necessary resources based on a pre-defined map:
-     - based on configs, choose correct n0ted0wn style + option
-     - gather: html template, (S)CSS files, JS files based on a mapping
-  2. These gathered info will be made available to flask by something like:
-     render_template(
-       MI.html, css_resources=MI.css, js_resources=MI.js, post=post_obj)
-
-[n0ted0wn module]: style + markup + (options) --> rendered content
-<div class="content">
-  [rendered content]
-</div>
-```
-{trivial}
+这个思维方式是我花了很长时间很大精力去养成的，至今都没有完全贯彻到行动中去，但多少有点进步。如果能真正实行，拖延症估计就好了吧。
+{note}
 """, u'style_blog_post')
 
 # #!/usr/bin/env python

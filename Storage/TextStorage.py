@@ -21,7 +21,6 @@ class TextStorage(object):
     return index
 
   def update(self, n, s):
-    print n, '-->', s, '<--', self.__data
     assert isinstance(n, int) and isinstance(s, unicode) and n in self.__data
     self.__data[n] = s
 
