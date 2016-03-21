@@ -14,6 +14,7 @@ from n0ted0wn.Block.Parser.Pre import Pre, PreStdEnv
 from n0ted0wn.Block.Parser.UnorderedList import UnorderedListStdEnv
 
 # Inline rules
+from n0ted0wn.Inline.Parser.Base import Base as InlineParserBase
 from n0ted0wn.Inline.Parser.Bold import Bold
 from n0ted0wn.Inline.Parser.BoldItalic import BoldItalic
 from n0ted0wn.Inline.Parser.Code import Code
@@ -56,8 +57,8 @@ class StyleHTML(StyleBase):
     (WarnStdEnv, None),
     (OrderedListStdEnv, None),
     (UnorderedListStdEnv, None),
-    (Pre, []),
-    (PreStdEnv, []),
+    (Pre, [InlineParserBase]),
+    (PreStdEnv, [InlineParserBase]),
     (Image, None),
     (ImageStdEnv, None),
     (Paragraph, None),

@@ -59,7 +59,7 @@ class StyleBase(object):
     cls._default_inline_rules = [SlashNum] + cls._default_inline_rules
     if cls.__intn_block_inline_rules is None:
       cls.__intn_block_inline_rules = [\
-        (br, cls._default_inline_rules if ir is None else ir) \
+        (br, cls._default_inline_rules if ir is None else [SlashNum] + ir) \
         for (br, ir) in cls._block_inline_rules\
       ]
     return cls.__intn_block_inline_rules
