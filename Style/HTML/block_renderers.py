@@ -136,3 +136,19 @@ class RendererWarn(RendererBase):
     {1}
   </div>
 </div>""".format(obj.title, explanation_markups)
+
+class RendererColor(RendererBase):
+  def _render(self, obj, storage, env_storage):
+    from n0ted0wn.Block.Renderer import Renderer
+
+    block_renderer = Renderer(self.style_cls, storage, env_storage)
+    markups = block_renderer.render(obj.blocks_list)
+    return u"""<div style="color: {0};">{1}</div>""".format(obj.color, markups)
+
+class RendererTrivial(RendererBase):
+  def _render(self, obj, storage, env_storage):
+    from n0ted0wn.Block.Renderer import Renderer
+
+    block_renderer = Renderer(self.style_cls, storage, env_storage)
+    markups = block_renderer.render(obj.blocks_list)
+    return u"""<div style="color: gray;">{0}</div>""".format(markups)

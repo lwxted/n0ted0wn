@@ -5,6 +5,7 @@ from n0ted0wn.converter import convert
 
 if __name__ == '__main__':
   print convert(u"""
+{trivial}
 ```
 Article markup:
 
@@ -34,6 +35,7 @@ modified: 2016/03/22 10:20:00 UTC+0400
   [rendered content]
 </div>
 ```
+{trivial}
 """, u'style_blog_post')
 
 # #!/usr/bin/env python
