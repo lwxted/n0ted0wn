@@ -158,3 +158,11 @@ class RendererEmphasis(RendererBase):
   def _render(self, obj, storage, env_storage):
     return u"""<div class="emph">{0}</div>""".format(
       self._format_key(storage.insert(obj.text)))
+
+class RendererCenter(RendererBase):
+  def _render(self, obj, storage, env_storage):
+    from n0ted0wn.Block.Renderer import Renderer
+
+    block_renderer = Renderer(self.style_cls, storage, env_storage)
+    markups = block_renderer.render(obj.blocks_list)
+    return u"""<div class="center">{0}</div>""".format(markups)
