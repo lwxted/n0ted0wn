@@ -7,6 +7,7 @@ from __future__ import absolute_import
 from n0ted0wn.Block.Parser.Color import ColorStdEnv, TrivialStdEnv
 from n0ted0wn.Block.Parser.DefinitionNoteWarn import \
   DefinitionStdEnv, NoteStdEnv, WarnStdEnv
+from n0ted0wn.Block.Parser.Emphasis import Emphasis
 from n0ted0wn.Block.Parser.Header import Header
 from n0ted0wn.Block.Parser.Image import Image, ImageStdEnv
 from n0ted0wn.Block.Parser.OrderedList import OrderedListStdEnv
@@ -26,9 +27,9 @@ from n0ted0wn.Inline.Parser.Newline import Newline
 
 # Block renderers
 from n0ted0wn.Style.HTML.block_renderers import \
-  RendererColor, RendererDefinition, RendererNote, RendererPre, \
-  RendererHeader, RendererImage, RendererOrderedList, RendererParagraph, \
-  RendererTrivial, RendererUnorderedList, RendererWarn
+  RendererColor, RendererDefinition, RendererEmphasis, RendererNote, \
+  RendererPre, RendererHeader, RendererImage, RendererOrderedList, \
+  RendererParagraph, RendererTrivial, RendererUnorderedList, RendererWarn
 
 # Inline renderers
 from n0ted0wn.Style.HTML.inline_renderers import \
@@ -53,6 +54,7 @@ class StyleHTML(StyleBase):
 
   _block_inline_rules = [
     (Header, None),
+    (Emphasis, None),
     (DefinitionStdEnv, None),
     (NoteStdEnv, None),
     (WarnStdEnv, None),
@@ -81,6 +83,7 @@ class StyleHTML(StyleBase):
     WarnStdEnv : RendererWarn,
     ColorStdEnv : RendererColor,
     TrivialStdEnv : RendererTrivial,
+    Emphasis : RendererEmphasis
   }
 
   _inline_renderers = {

@@ -143,7 +143,8 @@ class RendererColor(RendererBase):
 
     block_renderer = Renderer(self.style_cls, storage, env_storage)
     markups = block_renderer.render(obj.blocks_list)
-    return u"""<div style="color: {0};">{1}</div>""".format(obj.color, markups)
+    return u"""<div style="color: {0};">{1}</div>""".format(
+      Util.html_attribute(obj.color), markups)
 
 class RendererTrivial(RendererBase):
   def _render(self, obj, storage, env_storage):
@@ -152,3 +153,8 @@ class RendererTrivial(RendererBase):
     block_renderer = Renderer(self.style_cls, storage, env_storage)
     markups = block_renderer.render(obj.blocks_list)
     return u"""<div style="color: gray;">{0}</div>""".format(markups)
+
+class RendererEmphasis(RendererBase):
+  def _render(self, obj, storage, env_storage):
+    return u"""<div class="emph">{0}</div>""".format(
+      self._format_key(storage.insert(obj.text)))

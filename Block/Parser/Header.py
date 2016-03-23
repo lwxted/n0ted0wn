@@ -22,9 +22,6 @@ class Header(Base):
   ==== Level 4
   ===== Level 5
   ====== Level 6
-
-  3. Quick subtitle
-  + Title
   """
 
   def __init__(self, raw, numbered, level, title, toc, style_cls):
@@ -37,7 +34,7 @@ class Header(Base):
   @classmethod
   def parse(cls, raw, style_cls):
     raw = raw.strip('\n')
-    if '\n' in raw or (raw[0] != '#' and raw[0] != '=' and raw[0] != '+'):
+    if '\n' in raw or (raw[0] != '#' and raw[0] != '='):
       return None
     header_identifier = raw[0]
     header_numbered = (header_identifier == '#')
@@ -51,8 +48,5 @@ class Header(Base):
         break
     if level >= len(raw) or raw[level] != ' ':
       return None
-    if header_identifier != '+':
-      return Header(raw, header_numbered, level, raw[level + 1:], \
-        False, style_cls)
-    else:
-      return Header(raw, False, 5, raw[2:], True, style_cls)
+    return Header(raw, header_numbered, level, raw[level + 1:], \
+      False, style_cls)
