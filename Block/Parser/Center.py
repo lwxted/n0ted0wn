@@ -15,9 +15,9 @@ class CenterStdEnv(StdEnv):
 
   def __init__(self, raw, params, content, style_cls):
     super(CenterStdEnv, self).__init__(raw, params, content, style_cls)
-    self.content_blocks_list = []
+    self.blocks_list = []
 
   def _transform_args(self):
     from n0ted0wn.Block.Parser import Parser
-    self.content_blocks_list = Parser(self.style_cls, 0).parse(self.content)
+    self.blocks_list = Parser(self.style_cls, 0).parse(self.content)
     return self
