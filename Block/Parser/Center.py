@@ -3,7 +3,7 @@
 
 from n0ted0wn.Block.Parser.StdEnv import StdEnv
 
-class Center(StdEnv):
+class CenterStdEnv(StdEnv):
   """Implements parsing for the following block format.
 
   {center}
@@ -14,7 +14,7 @@ class Center(StdEnv):
   _block_type = 'center'
 
   def __init__(self, raw, params, content, style_cls):
-    super(Center, self).__init__(raw, params, content, style_cls)
+    super(CenterStdEnv, self).__init__(raw, params, content, style_cls)
     self.content_blocks_list = []
 
   def _transform_args(self):

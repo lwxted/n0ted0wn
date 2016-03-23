@@ -4,6 +4,7 @@
 from __future__ import absolute_import
 
 # Block rules
+from n0ted0wn.Block.Parser.Center import CenterStdEnv
 from n0ted0wn.Block.Parser.Color import ColorStdEnv, TrivialStdEnv
 from n0ted0wn.Block.Parser.DefinitionNoteWarn import \
   DefinitionStdEnv, NoteStdEnv, WarnStdEnv
@@ -27,9 +28,10 @@ from n0ted0wn.Inline.Parser.Newline import Newline
 
 # Block renderers
 from n0ted0wn.Style.HTML.block_renderers import \
-  RendererColor, RendererDefinition, RendererEmphasis, RendererNote, \
-  RendererPre, RendererHeader, RendererImage, RendererOrderedList, \
-  RendererParagraph, RendererTrivial, RendererUnorderedList, RendererWarn
+  RendererCenter, RendererColor, RendererDefinition, RendererEmphasis, \
+  RendererNote, RendererPre, RendererHeader, RendererImage, \
+  RendererOrderedList, RendererParagraph, RendererTrivial, \
+  RendererUnorderedList, RendererWarn
 
 # Inline renderers
 from n0ted0wn.Style.HTML.inline_renderers import \
@@ -53,6 +55,7 @@ class StyleHTML(StyleBase):
   ]
 
   _block_inline_rules = [
+    (CenterStdEnv, None),
     (Header, None),
     (Emphasis, None),
     (DefinitionStdEnv, None),
@@ -83,7 +86,8 @@ class StyleHTML(StyleBase):
     WarnStdEnv : RendererWarn,
     ColorStdEnv : RendererColor,
     TrivialStdEnv : RendererTrivial,
-    Emphasis : RendererEmphasis
+    Emphasis : RendererEmphasis,
+    CenterStdEnv : RendererCenter,
   }
 
   _inline_renderers = {
