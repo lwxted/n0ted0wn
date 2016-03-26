@@ -35,6 +35,13 @@ class StdEnv(Base):
     if not raw_stripped.endswith('\n{' + cls._block_type + '}'):
       return Base.NOT_COMPLETE
     last_line_break = raw_stripped.rfind('\n')
+    args_parsed = {}
+    for arg_raw in args[1:]:
+      equal_sign_idx = arg_raw.find('=')
+      if equal_sign_idx != -1:
+        args_parsed[arg_raw[:equal_sign_idx]] = arg_raw[equal_sign_idx + 1:]
+      else:
+        args_parsed[arg_raw] = ''
     obj = cls(
-      raw, args[1:], raw[first_line_break + 1:last_line_break], style_cls)
+      raw, args_parsed, raw[first_line_break + 1:last_line_break], style_cls)
     return obj._transform_args()

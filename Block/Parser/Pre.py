@@ -26,9 +26,9 @@ class Pre(Base):
   @classmethod
   def parse(cls, raw, style_cls):
     raw_stripped = raw.strip()
-    if raw_stripped[0:3] != '```':
+    if not raw_stripped.startswith('```'):
       return None
-    if raw.strip()[-4:] != '\n```':
+    if not raw_stripped.endswith('\n```'):
       return Base.NOT_COMPLETE
     first_line_break_index = raw_stripped.find('\n')
     lang = raw_stripped[3:first_line_break_index].strip()

@@ -1,30 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-class Environment(object):
-  CURRENT_HEADER_LEVEL = 'block_current_header_level_counter'
-  CURRENT_IMAGE = 'image_counter'
-  TABLE_OF_CONTENTS = 'table_of_contents'
-  MONTH_DAY = 'month_day'
-
-  __all_environments = None
-
-  @classmethod
-  def all(cls):
-    if cls.__all_environments is None:
-      cls.__all_environments = set([\
-        attr for attr in dir(cls) if not callable(attr) and \
-        not attr.startswith("__")])
-    return cls.__all_environments
-
+import copy
 
 class EnvironmentStorage(object):
   """Used for storing global environment variables / states, including but not
   limited to counters. Note that keys must be of str type."""
 
-  def __init__(self):
+  def __init__(self, options=None):
     self.__data = {}
-    # TODO: self.__options = {}
+    if options is None:
+      self.__options = {}
+    else:
+      assert isinstance(options, dict)
+      self.__options = copy.deepcopy(options)
 
   def get(self, key, default_value):
     assert isinstance(key, str)
@@ -35,3 +24,7 @@ class EnvironmentStorage(object):
   def set(self, key, value):
     assert isinstance(key, str)
     self.__data[key] = value
+
+  def get_option(self, key):
+    assert isinstance(key, str)
+    return self.__options.get(key, None)

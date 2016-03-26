@@ -5,7 +5,6 @@ from __future__ import absolute_import
 from n0ted0wn.Style.StyleBase import StyleBase
 from n0ted0wn.Style.HTML import StyleHTML
 from n0ted0wn.Style.Diary import StyleDiary
-from n0ted0wn.Style.DiaryPrivate import StyleDiaryPrivate
 
 """Upon the addition of a style class, the style class should be imported and
 added into this array."""
@@ -13,7 +12,6 @@ all_styles = [
   StyleBase,
   StyleHTML,
   StyleDiary,
-  StyleDiaryPrivate
 ]
 
 class Style(object):

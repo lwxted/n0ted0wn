@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from n0ted0wn.Block.Renderer.Base import Base as RendererBase
-from n0ted0wn.Storage.EnvironmentStorage import Environment
+from n0ted0wn.Storage.Namespace import Environment, Option
 
 from n0ted0wn.Style.Diary.counters import MonthDayCounter
 
@@ -57,7 +57,13 @@ class RendererDay(RendererBase):
 
 class RendererHide(RendererBase):
   def _render(self, obj, storage, env_storage):
-    return u''
+    if env_storage.get_option(Option.DIARY_DISPLAY_HIDDEN):
+      from n0ted0wn.Block.Renderer import Renderer
+      block_renderer = Renderer(self.style_cls, storage, env_storage)
+      contents = block_renderer.render(obj.content_blocks_list)
+      return contents
+    else:
+      return u""
 
 class RendererTOC(RendererBase):
   def _render(self, obj, storage, env_storage):

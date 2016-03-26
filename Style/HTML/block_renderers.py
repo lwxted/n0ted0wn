@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from n0ted0wn.Block.Renderer.Base import Base as RendererBase
-from n0ted0wn.Storage.EnvironmentStorage import Environment
+from n0ted0wn.Storage.Namespace import Environment
 from n0ted0wn.Style.HTML.counters import HeaderCounter, ImageCounter
 from n0ted0wn.Util import Util
 
@@ -34,7 +34,8 @@ class RendererHeader(RendererBase):
 class RendererImage(RendererBase):
   def _render(self, obj, storage, env_storage):
     if obj.numbered:
-      image_counter = env_storage.get(Environment.CURRENT_IMAGE, ImageCounter())
+      image_counter = env_storage.get(Environment.CURRENT_IMAGE, \
+        ImageCounter())
       image_counter.advance()
 
     figure_counter_span = u"""
@@ -166,3 +167,7 @@ class RendererCenter(RendererBase):
     block_renderer = Renderer(self.style_cls, storage, env_storage)
     markups = block_renderer.render(obj.blocks_list)
     return u"""<div class="center">{0}</div>""".format(markups)
+
+class RendererMeta(RendererBase):
+  def _render(self, obj, storage, env_storage):
+    return u""
