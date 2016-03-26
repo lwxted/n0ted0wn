@@ -27,7 +27,7 @@ class MonthStdEnv(StdEnv):
     if not self._params:
       return None
     try:
-      self.month = int(self._params[0])
+      self.month = int(self._params.keys()[0])
     except ValueError:
       return None
     self.content_blocks_list = Parser(self.style_cls, 0).parse(self.content)
@@ -47,7 +47,7 @@ class DayStdEnv(StdEnv):
     if not self._params:
       return None
     try:
-      self.day = int(self._params[0])
+      self.day = int(self._params.keys()[0])
     except ValueError:
       return None
     self.content_blocks_list = Parser(self.style_cls, 0).parse(self.content)
