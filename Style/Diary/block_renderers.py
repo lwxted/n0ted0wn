@@ -44,7 +44,7 @@ class RendererDay(RendererBase):
       MonthDayCounter())
     month_day_counter.add_day(obj.day)
     from n0ted0wn.Block.Renderer import Renderer
-    block_renderer = Renderer(self.style_cls, storage, EnvironmentStorage())
+    block_renderer = Renderer(self.style_cls, storage, EnvironmentStorage.copy(env_storage))
     contents = block_renderer.render(obj.content_blocks_list)
     return u"""
 <div class="day">

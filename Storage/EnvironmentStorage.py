@@ -15,6 +15,10 @@ class EnvironmentStorage(object):
       assert isinstance(options, dict)
       self.__options = copy.deepcopy(options)
 
+  @classmethod
+  def copy(cls, env_storage):
+    return cls(env_storage.__options)
+
   def get(self, key, default_value):
     assert isinstance(key, str)
     if key not in self.__data:
