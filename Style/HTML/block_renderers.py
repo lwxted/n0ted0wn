@@ -171,3 +171,7 @@ class RendererCenter(RendererBase):
 class RendererMeta(RendererBase):
   def _render(self, obj, storage, env_storage):
     return u""
+
+class RendererSeparator(RendererBase):
+  def _render(self, obj, storage, env_storage):
+    return u"\n<hr />\n"

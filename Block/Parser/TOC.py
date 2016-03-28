@@ -8,6 +8,7 @@ class TOCStdEnv(StdEnv):
   Table of contents
 
   {toc}
+  {toc}
   """
 
   _block_type = 'toc'
