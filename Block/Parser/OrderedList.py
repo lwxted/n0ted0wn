@@ -56,15 +56,15 @@ class OrderedListStdEnv(StdEnv):
     lines = self.content.split('\n')
     grouped_lines = []
     for l in lines:
-      if l.startswith(' ' * (len(unicode(current_index)) + 2)) or not l.strip():
-        grouped_lines[-1][1].append(l)
-      else:
-        counter_marker = unicode(current_index) + '. '
-        if not l.startswith(counter_marker):
-          return None
+      counter_marker = unicode(current_index) + '. '
+      if l.startswith(counter_marker):
         grouped_lines.append((current_index, [' ' * len(counter_marker) + \
           l[len(counter_marker):]]))
         current_index += 1
+      elif l.startswith(' ' * (len(unicode(current_index - 1)) + 2)) or not l.strip():
+        grouped_lines[-1][1].append(l)
+      else:
+        return None
 
     from n0ted0wn.Block.Parser import Parser
 
