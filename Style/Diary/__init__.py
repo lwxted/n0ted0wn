@@ -20,7 +20,6 @@ class StyleDiary(StyleHTML):
     (HideStdEnv, None),
     (MonthStdEnv, None),
     (DayStdEnv, None),
-    (TOCStdEnv, []),
   ]
 
   _block_renderers = {
@@ -30,5 +29,6 @@ class StyleDiary(StyleHTML):
     TOCStdEnv : RendererTOC,
   }
 
-StyleDiary._block_renderers.update(StyleHTML._block_renderers)
+StyleDiary._block_renderers = dict(StyleHTML._block_renderers.items() + \
+  StyleDiary._block_renderers.items())
 StyleDiary._block_inline_rules += StyleHTML._block_inline_rules

@@ -24,12 +24,11 @@ class Header(Base):
   ====== Level 6
   """
 
-  def __init__(self, raw, numbered, level, title, toc, style_cls):
+  def __init__(self, raw, numbered, level, title, style_cls):
     super(Header, self).__init__(raw, style_cls)
     self.level = level
     self.title = title
     self.numbered = numbered
-    self.toc = True
 
   @classmethod
   def parse(cls, raw, style_cls):
@@ -48,5 +47,4 @@ class Header(Base):
         break
     if level >= len(raw) or raw[level] != ' ':
       return None
-    return Header(raw, header_numbered, level, raw[level + 1:], \
-      False, style_cls)
+    return Header(raw, header_numbered, level, raw[level + 1:], style_cls)

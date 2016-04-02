@@ -1,10 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import re
+
 from n0ted0wn.Block.Renderer.Base import Base as RendererBase
 from n0ted0wn.Storage.Namespace import Environment
 from n0ted0wn.Style.HTML.counters import HeaderCounter, ImageCounter
 from n0ted0wn.Util import Util
+
+def header_id(header_counter_str, header_obj):
+  return header_counter_str.replace('.', '-') + '-' + \
+    re.sub(r'([^\s\w]|_)+', '', header_obj.title).replace(' ', '-').lower()
 
 class RendererPre(RendererBase):
   def _render(self, obj, storage, env_storage):
@@ -18,18 +24,18 @@ class RendererHeader(RendererBase):
       Environment.CURRENT_HEADER_LEVEL, HeaderCounter())
     header_counter.advance(obj.level)
 
-    if obj.toc:
-      toc = env_storage.get(Environment.TABLE_OF_CONTENTS, list())
-      toc.append(obj)
+    toc = env_storage.get(Environment.TABLE_OF_CONTENTS, list())
+    toc.append((str(header_counter), obj))
 
     counter_span = u"""<span class="counter section-counter">{0}</span> """\
       .format(header_counter) if obj.numbered else ''
 
-    return u"""<h{0}>{1}{2}</h{0}>"""\
+    return u"""<h{0} id="{3}">{1}{2}</h{0}>"""\
       .format(
         obj.level + 1,
         counter_span,
-        self._format_key(storage.insert(obj.title)))
+        self._format_key(storage.insert(obj.title)),
+        header_id(str(header_counter), obj))
 
 class RendererImage(RendererBase):
   def _render(self, obj, storage, env_storage):
@@ -175,3 +181,51 @@ class RendererMeta(RendererBase):
 class RendererSeparator(RendererBase):
   def _render(self, obj, storage, env_storage):
     return u"\n<hr />\n"
+
+class RendererTOC(RendererBase):
+  def __render_toc(self, toc, cnt, storage, env_storage):
+    start_level = toc[cnt][1].level
+    li_list = []
+    while cnt < len(toc):
+      (header_counter, header_obj) = toc[cnt]
+      if header_obj.level < start_level:
+        break
+      elif header_obj.level == start_level:
+        li_list.append(u"""
+<li>
+  <a href="#{0}"><span class="counter toc-counter">{1}</span> {2}</a>
+</li>
+"""\
+          .format(
+            header_id(header_counter, header_obj),
+            header_counter,
+            self._format_key(storage.insert(header_obj.title))
+          )
+        )
+        cnt += 1
+      elif header_obj.level > start_level:
+        (prev_header_counter, prev_header_obj) = toc[cnt - 1]
+        (new_cnt, rendered_children) = self.__render_toc(
+          toc, cnt, storage, env_storage)
+        li_list[-1] = u"""
+<li>
+  <a href="#{0}"><span class="counter toc-counter">{1}</span> {2}</a>
+  <ul>{3}</ul>
+</li>
+"""\
+        .format(
+          header_id(prev_header_counter, prev_header_obj),
+          prev_header_counter,
+          self._format_key(storage.insert(prev_header_obj.title)),
+          rendered_children
+        )
+        cnt = new_cnt
+    return (cnt, '\n'.join(li_list))
+
+  def _render(self, obj, storage, env_storage):
+    toc = env_storage.get(Environment.TABLE_OF_CONTENTS, list())
+    (_, rendered) = self.__render_toc(toc, 0, storage, env_storage)
+    return u"""
+<div class="toc">
+  <ul>{0}</ul>
+</div>""".format(rendered)

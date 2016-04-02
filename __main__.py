@@ -9,9 +9,20 @@ if __name__ == '__main__':
 Meta_content...
 ---
 
-### This is serious...
+# This is serious...
 
-{hide}
+## But this is only a test
+
+### This also
+
+### That also
+
+## How about this?
+
+# Any problems?
+
+#### What about this???
+
 {note}
 Take note:
 绝大多数时候，凑合着做完，比完美地半途而废要好。
@@ -20,8 +31,10 @@ Take note:
 
 这个思维方式是我花了很长时间很大精力去养成的，至今都没有完全贯彻到行动中去，但多少有点进步。如果能真正实行，拖延症估计就好了吧。
 {note}
-{hide}
-""", u'style_diary', {'diary_display_hidden' : False})
+
+{toc}
+{toc}
+""", u'style_blog_post', {})
 
 # #!/usr/bin/env python
 # # -*- coding: utf-8 -*-

@@ -16,6 +16,7 @@ from n0ted0wn.Block.Parser.OrderedList import OrderedListStdEnv
 from n0ted0wn.Block.Parser.Paragraph import Paragraph
 from n0ted0wn.Block.Parser.Pre import Pre, PreStdEnv
 from n0ted0wn.Block.Parser.Separator import Separator
+from n0ted0wn.Block.Parser.TOC import TOCStdEnv
 from n0ted0wn.Block.Parser.UnorderedList import UnorderedListStdEnv
 
 # Inline rules
@@ -33,7 +34,7 @@ from n0ted0wn.Style.HTML.block_renderers import \
   RendererCenter, RendererColor, RendererDefinition, RendererEmphasis, \
   RendererNote, RendererPre, RendererHeader, RendererImage, \
   RendererMeta, RendererOrderedList, RendererParagraph, RendererSeparator, \
-  RendererTrivial, RendererUnorderedList, RendererWarn
+  RendererTrivial, RendererUnorderedList, RendererWarn, RendererTOC
 
 # Inline renderers
 from n0ted0wn.Style.HTML.inline_renderers import \
@@ -58,6 +59,7 @@ class StyleHTML(StyleBase):
 
   _block_inline_rules = [
     (Meta, [InlineParserBase]),
+    (TOCStdEnv, []),
     (CenterStdEnv, None),
     (Header, None),
     (Emphasis, None),
@@ -94,6 +96,7 @@ class StyleHTML(StyleBase):
     CenterStdEnv : RendererCenter,
     Meta : RendererMeta,
     Separator : RendererSeparator,
+    TOCStdEnv : RendererTOC,
   }
 
   _inline_renderers = {
