@@ -9,8 +9,7 @@ from n0ted0wn.Style.HTML.counters import HeaderCounter, ImageCounter
 from n0ted0wn.Util import Util
 
 def header_id(header_counter_str, header_obj):
-  return header_counter_str.replace('.', '-') + '-' + \
-    re.sub(r'([^\s\w]|_)+', '', header_obj.title).replace(' ', '-').lower()
+  return u"""s{0}""".format(header_counter_str.replace('.', '-'))
 
 class RendererPre(RendererBase):
   def _render(self, obj, storage, env_storage):

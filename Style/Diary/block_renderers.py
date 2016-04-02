@@ -12,12 +12,12 @@ import datetime
 def month_section_id(m):
   month = datetime.date(1900, m, 1).strftime('%B')
   month_str = unicode(month)
-  return u'diary_month-' + month_str
+  return u'm{0}'.format(month_str)
 
 def day_div_id(m, d):
   month = datetime.date(1900, m, 1).strftime('%B')
   month_str = unicode(month)
-  return u'diary_day-{0}-{1}'.format(month_str, d)
+  return u'm{0}-d{1}'.format(month_str, d)
 
 class RendererMonth(RendererBase):
   def _render(self, obj, storage, env_storage):
