@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import re
-
 from n0ted0wn.Block.Renderer.Base import Base as RendererBase
 from n0ted0wn.Storage.Namespace import Environment
 from n0ted0wn.Style.HTML.counters import HeaderCounter, ImageCounter
@@ -13,9 +11,10 @@ def header_id(header_counter_str, header_obj):
 
 class RendererPre(RendererBase):
   def _render(self, obj, storage, env_storage):
+    class_str = u' class={0}'.format(obj.lang) if obj.lang == 'pseudo' else ''
     lang = u' lang="{0}"'.format(obj.lang) if obj.lang else ''
-    return u"""<pre{0}><code>{1}</code></pre>"""\
-      .format(lang, self._format_key(storage.insert(obj.content)))
+    return u"""<pre{0}{1}><code>{2}</code></pre>"""\
+      .format(lang, class_str, self._format_key(storage.insert(obj.content)))
 
 class RendererHeader(RendererBase):
   def _render(self, obj, storage, env_storage):
@@ -223,6 +222,8 @@ class RendererTOC(RendererBase):
 
   def _render(self, obj, storage, env_storage):
     toc = env_storage.get(Environment.TABLE_OF_CONTENTS, list())
+    if not toc:
+      return ''
     (_, rendered) = self.__render_toc(toc, 0, storage, env_storage)
     return u"""
 <div class="toc">
