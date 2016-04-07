@@ -12,12 +12,14 @@ from n0ted0wn.Block.Parser.Emphasis import Emphasis
 from n0ted0wn.Block.Parser.Header import Header
 from n0ted0wn.Block.Parser.Image import Image, ImageStdEnv
 from n0ted0wn.Block.Parser.Meta import Meta
-from n0ted0wn.Block.Parser.OrderedList import OrderedListStdEnv
+from n0ted0wn.Block.Parser.OrderedList import OrderedList, \
+  OrderedListStdEnv
 from n0ted0wn.Block.Parser.Paragraph import Paragraph
 from n0ted0wn.Block.Parser.Pre import Pre, PreStdEnv
 from n0ted0wn.Block.Parser.Separator import Separator
 from n0ted0wn.Block.Parser.TOC import TOCStdEnv
-from n0ted0wn.Block.Parser.UnorderedList import UnorderedListStdEnv
+from n0ted0wn.Block.Parser.UnorderedList import UnorderedList, \
+  UnorderedListStdEnv
 
 # Inline rules
 from n0ted0wn.Inline.Parser.Base import Base as InlineParserBase
@@ -69,7 +71,9 @@ class StyleHTML(StyleBase):
     (TrivialStdEnv, None),
     (ColorStdEnv, None),
     (OrderedListStdEnv, None),
+    (OrderedList, None),
     (UnorderedListStdEnv, None),
+    (UnorderedList, None),
     (Separator, [InlineParserBase]),
     (Pre, [InlineParserBase]),
     (PreStdEnv, [InlineParserBase]),
@@ -81,7 +85,9 @@ class StyleHTML(StyleBase):
   _block_renderers = {
     Header : RendererHeader,
     OrderedListStdEnv : RendererOrderedList,
+    OrderedList : RendererOrderedList,
     UnorderedListStdEnv : RendererUnorderedList,
+    UnorderedList : RendererUnorderedList,
     Pre : RendererPre,
     PreStdEnv : RendererPre,
     Image : RendererImage,

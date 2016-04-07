@@ -5,36 +5,14 @@ from n0ted0wn.converter import convert
 
 if __name__ == '__main__':
   print convert(u"""
----
-Meta_content...
----
+8. Test only
+9. Another test
+10. Here is one more
+11. Another one
+    .
+    This?
 
-# This is serious...
-
-## But this is only a test
-
-### This also
-
-### That also
-
-## How about this?
-
-# Any problems?
-
-#### What about this???
-
-{note}
-Take note:
-绝大多数时候，凑合着做完，比完美地半途而废要好。
-绝大多数时候，决定要做就直接开始，比自认为准备充分了再开始要好。
-脑内山水千万里，不如脚下一步。哪怕是跌出去的一步。
-
-这个思维方式是我花了很长时间很大精力去养成的，至今都没有完全贯彻到行动中去，但多少有点进步。如果能真正实行，拖延症估计就好了吧。
-{note}
-
-{toc}
-{toc}
-""", u'style_blog_post', {})
+""", u'style_diary', {'diary_display_hidden' : True})
 
 # #!/usr/bin/env python
 # # -*- coding: utf-8 -*-

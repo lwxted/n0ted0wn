@@ -1,7 +1,60 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from n0ted0wn.Block.Parser.Base import Base
 from n0ted0wn.Block.Parser.StdEnv import StdEnv
+
+
+class OrderedList(Base):
+  """
+  Implements parsing for the following block format.
+
+  1. Item 1
+  2. Item 2
+     with multiple lines
+
+  And the starting index can be non-default (1).
+
+  9. Item 9
+  10. Item 10
+  """
+
+  def __init__(self, raw, start_index, parsed_blocks_list, style_cls):
+    super(OrderedList, self).__init__(raw, style_cls)
+    self.start_index = start_index
+    self.parsed_blocks_list = parsed_blocks_list
+
+  @classmethod
+  def parse(cls, raw, style_cls):
+    raw = raw.strip()
+    first_dot_index = raw.find('. ')
+    if first_dot_index == -1:
+      return None
+    start_index_str = raw[0:first_dot_index]
+    if not start_index_str.isdigit():
+      return None
+    start_index = int(start_index_str)
+    current_index = start_index
+    items = []
+    lines = raw.split('\n')
+    for l in lines:
+      content_marker = unicode(current_index) + '. '
+      if l.startswith(content_marker):
+        items.append(l[len(content_marker):])
+        current_index += 1
+      else:
+        prev_content_marker_str_len = len(unicode(current_index - 1)) + 2
+        if l.startswith(' ' * prev_content_marker_str_len):
+          if not items:
+            return None
+          else:
+            items[-1] += '\n' + l[prev_content_marker_str_len:]
+        else:
+          return None
+    from n0ted0wn.Block.Parser import Parser
+    return OrderedList(raw, start_index, \
+      [Parser(style_cls, 0).parse(item) for item in items], style_cls)
+
 
 class OrderedListStdEnv(StdEnv):
   """
@@ -61,7 +114,8 @@ class OrderedListStdEnv(StdEnv):
         grouped_lines.append((current_index, [' ' * len(counter_marker) + \
           l[len(counter_marker):]]))
         current_index += 1
-      elif l.startswith(' ' * (len(unicode(current_index - 1)) + 2)) or not l.strip():
+      elif l.startswith(' ' * (len(unicode(current_index - 1)) + 2)) or \
+        not l.strip():
         grouped_lines[-1][1].append(l)
       else:
         return None
