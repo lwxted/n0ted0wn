@@ -6,6 +6,7 @@ class Environment(object):
   CURRENT_IMAGE = 'image_counter'
   TABLE_OF_CONTENTS = 'table_of_contents'
   MONTH_DAY = 'month_day'
+  TODO_ITEM_COUNTER = 'todo_item_counter'
 
   __all_environments = None
 

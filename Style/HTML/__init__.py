@@ -18,6 +18,7 @@ from n0ted0wn.Block.Parser.Paragraph import Paragraph
 from n0ted0wn.Block.Parser.Pre import Pre, PreStdEnv
 from n0ted0wn.Block.Parser.Separator import Separator
 from n0ted0wn.Block.Parser.TOC import TOCStdEnv
+from n0ted0wn.Block.Parser.TodoList import TodoList, TodoListStdEnv
 from n0ted0wn.Block.Parser.UnorderedList import UnorderedList, \
   UnorderedListStdEnv
 
@@ -36,7 +37,8 @@ from n0ted0wn.Style.HTML.block_renderers import \
   RendererCenter, RendererColor, RendererDefinition, RendererEmphasis, \
   RendererNote, RendererPre, RendererHeader, RendererImage, \
   RendererMeta, RendererOrderedList, RendererParagraph, RendererSeparator, \
-  RendererTrivial, RendererUnorderedList, RendererWarn, RendererTOC
+  RendererTrivial, RendererUnorderedList, RendererWarn, RendererTOC, \
+  RendererTodoList
 
 # Inline renderers
 from n0ted0wn.Style.HTML.inline_renderers import \
@@ -70,6 +72,8 @@ class StyleHTML(StyleBase):
     (WarnStdEnv, None),
     (TrivialStdEnv, None),
     (ColorStdEnv, None),
+    (TodoList, None),
+    (TodoListStdEnv, None),
     (OrderedListStdEnv, None),
     (OrderedList, None),
     (UnorderedListStdEnv, None),
@@ -103,6 +107,8 @@ class StyleHTML(StyleBase):
     Meta : RendererMeta,
     Separator : RendererSeparator,
     TOCStdEnv : RendererTOC,
+    TodoList : RendererTodoList,
+    TodoListStdEnv : RendererTodoList,
   }
 
   _inline_renderers = {

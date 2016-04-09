@@ -66,6 +66,8 @@ class UnorderedListStdEnv(StdEnv):
     grouped_lines = []
     for l in lines:
       if l.startswith('  ') or not l.strip():
+        if not grouped_lines:
+          return None
         grouped_lines[-1].append(l)
       else:
         counter_marker = '* '

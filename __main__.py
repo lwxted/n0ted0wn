@@ -5,13 +5,19 @@ from n0ted0wn.converter import convert
 
 if __name__ == '__main__':
   print convert(u"""
-8. Test only
-9. Another test
-10. Here is one more
-11. Another one
-    .
-    This?
+{todo}
+* [ ] Test only
+* [x] Another test
+* [X] Here is one more
+* [ ] Another one
+  .
+  This?&"<>
+  Test only...
 
+  * [ ] Another nested todo list!
+  * [x] Like this 1
+  * [X] Like this 2
+{todo}
 """, u'style_diary', {'diary_display_hidden' : True})
 
 # #!/usr/bin/env python

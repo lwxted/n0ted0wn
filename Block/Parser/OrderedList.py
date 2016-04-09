@@ -116,6 +116,8 @@ class OrderedListStdEnv(StdEnv):
         current_index += 1
       elif l.startswith(' ' * (len(unicode(current_index - 1)) + 2)) or \
         not l.strip():
+        if not grouped_lines:
+          return None
         grouped_lines[-1][1].append(l)
       else:
         return None

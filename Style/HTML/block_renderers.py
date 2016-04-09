@@ -229,3 +229,27 @@ class RendererTOC(RendererBase):
 <div class="toc">
   <ul>{0}</ul>
 </div>""".format(rendered)
+
+class RendererTodoList(RendererBase):
+  def _render(self, obj, storage, env_storage):
+    from n0ted0wn.Block.Renderer import Renderer
+    block_renderer = Renderer(self.style_cls, storage, env_storage)
+
+    li_markups = []
+    ul_markup = u"""<ul class="checklist">{0}</ul>"""
+    input_box_str = u"""<input type="checkbox"{0}>"""
+
+    for (done, label_markup, block_objs) in obj.parsed_items:
+      li_markup = u"""<li class="checklist_item{0}">
+  {1}
+  <label>{2}</label>
+  {3}
+</li>"""\
+        .format(
+          ' done' if done else '',
+          input_box_str.format(' checked' if done else ''),
+          self._format_key(storage.insert(label_markup)),
+          block_renderer.render(block_objs)
+        )
+      li_markups.append(li_markup)
+    return ul_markup.format('\n'.join(li_markups))
