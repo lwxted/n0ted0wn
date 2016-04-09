@@ -3,7 +3,8 @@
 
 from n0ted0wn.Block.Renderer.Base import Base as RendererBase
 from n0ted0wn.Storage.Namespace import Environment
-from n0ted0wn.Style.HTML.counters import HeaderCounter, ImageCounter
+from n0ted0wn.Style.HTML.counters import HeaderCounter, ImageCounter, \
+  TodoCounter
 from n0ted0wn.Util import Util
 
 def header_id(header_counter_str, header_obj):
@@ -237,7 +238,9 @@ class RendererTodoList(RendererBase):
 
     li_markups = []
     ul_markup = u"""<ul class="checklist">{0}</ul>"""
-    input_box_str = u"""<input type="checkbox"{0}>"""
+    input_box_str = u"""<input data-cbi="{0}" type="checkbox"{1}>"""
+
+    todo_counter = env_storage.get(Environment.TODO_ITEM_COUNTER, TodoCounter)
 
     for (done, label_markup, block_objs) in obj.parsed_items:
       li_markup = u"""<li class="checklist_item{0}">
@@ -249,9 +252,11 @@ class RendererTodoList(RendererBase):
 </li>"""\
         .format(
           ' done' if done else '',
-          input_box_str.format(' checked' if done else ''),
+          input_box_str.format(todo_counter.count(), \
+            ' checked' if done else ''),
           self._format_key(storage.insert(label_markup)),
           block_renderer.render(block_objs)
         )
       li_markups.append(li_markup)
+      todo_counter.advance()
     return ul_markup.format('\n'.join(li_markups))

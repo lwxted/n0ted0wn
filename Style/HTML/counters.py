@@ -28,3 +28,14 @@ class ImageCounter(object):
 
   def __repr__(self):
     return unicode(self.__count)
+
+class TodoCounter(object):
+  counter = 0
+
+  @classmethod
+  def count(cls):
+    return cls.counter
+
+  @classmethod
+  def advance(cls):
+    cls.counter += 1
