@@ -243,7 +243,9 @@ class RendererTodoList(RendererBase):
       li_markup = u"""<li class="checklist_item{0}">
   {1}
   <label>{2}</label>
-  {3}
+  <div class="checklist_details">
+    {3}
+  </div>
 </li>"""\
         .format(
           ' done' if done else '',
