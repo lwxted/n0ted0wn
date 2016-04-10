@@ -158,7 +158,7 @@ class RendererTrivial(RendererBase):
 
     block_renderer = Renderer(self.style_cls, storage, env_storage)
     markups = block_renderer.render(obj.blocks_list)
-    return u"""<div style="color: gray;">{0}</div>""".format(markups)
+    return u"""<div style="opacity: 0.5;">{0}</div>""".format(markups)
 
 class RendererEmphasis(RendererBase):
   def _render(self, obj, storage, env_storage):
