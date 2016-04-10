@@ -240,7 +240,7 @@ class RendererTodoList(RendererBase):
     ul_markup = u"""<ul class="checklist">{0}</ul>"""
     input_box_str = u"""<input data-cbi="{0}" type="checkbox"{1}>"""
 
-    todo_counter = env_storage.get(Environment.TODO_ITEM_COUNTER, TodoCounter)
+    todo_counter = env_storage.get(Environment.TODO_ITEM_COUNTER, TodoCounter())
 
     for (done, label_markup, block_objs) in obj.parsed_items:
       li_markup = u"""<li class="checklist_item{0}">
@@ -252,8 +252,7 @@ class RendererTodoList(RendererBase):
 </li>"""\
         .format(
           ' done' if done else '',
-          input_box_str.format(todo_counter.count(), \
-            ' checked' if done else ''),
+          input_box_str.format(todo_counter, ' checked' if done else ''),
           self._format_key(storage.insert(label_markup)),
           block_renderer.render(block_objs)
         )

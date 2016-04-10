@@ -6,6 +6,7 @@ from n0ted0wn.Storage.Namespace import Environment, Option
 from n0ted0wn.Storage.EnvironmentStorage import EnvironmentStorage
 
 from n0ted0wn.Style.Diary.counters import MonthDayCounter
+from n0ted0wn.Style.HTML.counters import TodoCounter
 
 import datetime
 
@@ -40,7 +41,12 @@ class RendererDay(RendererBase):
       MonthDayCounter())
     month_day_counter.add_day(obj.day)
     from n0ted0wn.Block.Renderer import Renderer
-    block_renderer = Renderer(self.style_cls, storage, EnvironmentStorage())
+    # Sets up new environment storage every time, except we still wish to retain
+    # the todo item counter for cbi consistency.
+    env_storage_new = EnvironmentStorage()
+    env_storage_new.set(Environment.TODO_ITEM_COUNTER, \
+      env_storage.get(Environment.TODO_ITEM_COUNTER, TodoCounter()))
+    block_renderer = Renderer(self.style_cls, storage, env_storage_new)
     contents = block_renderer.render(obj.content_blocks_list)
     return u"""
 <div class="day">

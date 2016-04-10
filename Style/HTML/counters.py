@@ -30,12 +30,11 @@ class ImageCounter(object):
     return unicode(self.__count)
 
 class TodoCounter(object):
-  counter = 0
+  def __init__(self):
+    self.__count = 0
 
-  @classmethod
-  def count(cls):
-    return cls.counter
+  def advance(self):
+    self.__count += 1
 
-  @classmethod
-  def advance(cls):
-    cls.counter += 1
+  def __repr__(self):
+    return unicode(self.__count)
