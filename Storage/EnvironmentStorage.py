@@ -16,7 +16,7 @@ class EnvironmentStorage(object):
       self.__options = copy.deepcopy(options)
 
   @classmethod
-  def copy(cls, env_storage):
+  def with_identical_options(cls, env_storage):
     return cls(env_storage.__options)
 
   def get(self, key, default_value):

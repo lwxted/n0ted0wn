@@ -43,7 +43,7 @@ class RendererDay(RendererBase):
     from n0ted0wn.Block.Renderer import Renderer
     # Sets up new environment storage every time, except we still wish to retain
     # the todo item counter for cbi consistency.
-    env_storage_new = EnvironmentStorage()
+    env_storage_new = EnvironmentStorage.with_identical_options(env_storage)
     env_storage_new.set(Environment.TODO_ITEM_COUNTER, \
       env_storage.get(Environment.TODO_ITEM_COUNTER, TodoCounter()))
     block_renderer = Renderer(self.style_cls, storage, env_storage_new)
