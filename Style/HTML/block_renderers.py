@@ -243,6 +243,7 @@ class RendererTodoList(RendererBase):
     todo_counter = env_storage.get(Environment.TODO_ITEM_COUNTER, TodoCounter())
 
     for (done, label_markup, block_objs) in obj.parsed_items:
+      todo_counter.advance()
       li_markup = u"""<li class="checklist_item{0}">
   {1}
   <label>{2}</label>
@@ -257,5 +258,4 @@ class RendererTodoList(RendererBase):
           block_renderer.render(block_objs)
         )
       li_markups.append(li_markup)
-      todo_counter.advance()
     return ul_markup.format('\n'.join(li_markups))
