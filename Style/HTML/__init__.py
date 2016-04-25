@@ -63,7 +63,7 @@ class StyleHTML(StyleBase):
 
   _block_inline_rules = [
     (Meta, [InlineParserBase]),
-    (TOCStdEnv, []),
+    (TOCStdEnv, None),
     (CenterStdEnv, None),
     (Header, None),
     (Emphasis, None),
