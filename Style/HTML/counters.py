@@ -31,7 +31,7 @@ class ImageCounter(object):
 
 class TodoCounter(object):
   def __init__(self):
-    self.__count = 0
+    self.__count = -1
 
   def advance(self):
     self.__count += 1
