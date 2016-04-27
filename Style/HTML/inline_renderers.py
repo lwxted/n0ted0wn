@@ -37,3 +37,9 @@ class RendererNewline(Base):
   @classmethod
   def _render(cls, inline, final_process):
     return u'<br />\n'
+
+class RendererRuby(Base):
+  @classmethod
+  def _render(cls, inline, final_process):
+    return u'<ruby>{0}<rt>{1}</rt><ruby>'.format(
+      final_process(inline.content[0]), final_process(inline.content[1]))

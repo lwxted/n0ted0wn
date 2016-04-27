@@ -31,6 +31,7 @@ from n0ted0wn.Inline.Parser.Del import Del
 from n0ted0wn.Inline.Parser.Italic import Italic
 from n0ted0wn.Inline.Parser.MathInline import MathInline
 from n0ted0wn.Inline.Parser.Newline import Newline
+from n0ted0wn.Inline.Parser.Ruby import Ruby
 
 # Block renderers
 from n0ted0wn.Style.HTML.block_renderers import \
@@ -43,7 +44,7 @@ from n0ted0wn.Style.HTML.block_renderers import \
 # Inline renderers
 from n0ted0wn.Style.HTML.inline_renderers import \
   RendererBold, RendererBoldItalic, RendererCode, RendererDel, RendererItalic, \
-  RendererMathInline, RendererNewline
+  RendererMathInline, RendererNewline, RendererRuby
 
 from n0ted0wn.Style.StyleBase import StyleBase
 
@@ -59,6 +60,7 @@ class StyleHTML(StyleBase):
     Italic,
     Del,
     Newline,
+    Ruby,
   ]
 
   _block_inline_rules = [
@@ -119,6 +121,7 @@ class StyleHTML(StyleBase):
     Italic : RendererItalic,
     MathInline : RendererMathInline,
     Newline : RendererNewline,
+    Ruby : RendererRuby
   }
 
   _escapeTable = [
