@@ -26,7 +26,7 @@ class RendererHeader(RendererBase):
     toc = env_storage.get(Environment.TABLE_OF_CONTENTS, list())
     toc.append((str(header_counter), obj))
 
-    counter_span = u"""<a class="counter-anchor" href="{1}">
+    counter_span = u"""<a class="counter-anchor" href="#{1}">
 <span class="counter section-counter">{0}</span></a> """\
       .format(
         header_counter,
