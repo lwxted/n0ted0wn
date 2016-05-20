@@ -57,13 +57,13 @@ class StyleHTML(StyleBase):
   _default_inline_rules = [
     Code,
     MathInline,
+    Hyperlink,
     BoldItalic,
     Bold,
     Italic,
     Del,
     Newline,
     Ruby,
-    Hyperlink,
   ]
 
   _block_inline_rules = [
