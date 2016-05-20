@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from n0ted0wn.Inline.Renderer.Base import Base
+from n0ted0wn.Util import Util
 
 class RendererItalic(Base):
   @classmethod
@@ -43,3 +44,9 @@ class RendererRuby(Base):
   def _render(cls, inline, final_process):
     return u'<ruby>{0}<rt>{1}</rt></ruby>'.format(
       final_process(inline.content[0]), final_process(inline.content[1]))
+
+class RendererHyperlink(Base):
+  @classmethod
+  def _render(cls, inline, final_process):
+    return u'<a href="{0}">{1}</a>'.format(
+      Util.html_attribute(inline.content[0]), final_process(inline.content[1]))
