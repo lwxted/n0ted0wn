@@ -15,7 +15,7 @@ class Hyperlink(Base):
     l1 = [cls(\
       raw, m.span(), (raw[slice(*m.span(2))], raw[slice(*m.span(1))])) \
       for m in re.finditer(\
-        r'\[(\w+?)\]\((' + Hyperlink.__url_regex + r')\)', raw, re.UNICODE)]
+        r'\[(.+?)\]\((' + Hyperlink.__url_regex + r')\)', raw, re.UNICODE)]
     l2 = [cls(\
       raw, m.span(), (raw[slice(*m.span(1))], raw[slice(*m.span(1))])) \
       for m in re.finditer(\
