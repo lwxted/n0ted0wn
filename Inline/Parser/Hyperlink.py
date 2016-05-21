@@ -17,7 +17,7 @@ class Hyperlink(Base):
       for m in re.finditer(\
         r'\[(.+?)\]\((' + Hyperlink.__url_regex + r')\)', raw, re.UNICODE)]
     l2 = [cls(\
-      raw, m.span(), (raw[slice(*m.span(1))], raw[slice(*m.span(1))])) \
+      raw, m.span(), (raw[slice(*m.span(1))], raw[slice(*m.span(0))])) \
       for m in re.finditer(\
         r'(?:^|\s+)(' + Hyperlink.__url_regex + r')(?:$|\s+)', raw, re.UNICODE)]
     return sorted(l1 + l2, key=operator.attrgetter('span'))
