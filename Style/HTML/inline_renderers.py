@@ -48,5 +48,7 @@ class RendererRuby(Base):
 class RendererHyperlink(Base):
   @classmethod
   def _render(cls, inline, final_process):
+    if not inline.content[0].startswith('http'):
+      inline.content[0] = 'http://' + inline.content[0]
     return u'<a href="{0}">{1}</a>'.format(
       Util.html_attribute(inline.content[0]), final_process(inline.content[1]))
