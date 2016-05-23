@@ -39,7 +39,7 @@ class RendererDay(RendererBase):
   def _render(self, obj, storage, env_storage):
     month_day_counter = env_storage.get(Environment.MONTH_DAY,
       MonthDayCounter())
-    month_day_counter.add_day(obj.day)
+    month_day_counter.add_day(obj.day, obj.important)
     from n0ted0wn.Block.Renderer import Renderer
     # Sets up new environment storage every time, except we still wish to retain
     # the todo item counter for cbi consistency.
@@ -83,9 +83,11 @@ class RendererTOC(RendererBase):
     {2}
   </ul>
 </li>
-""".format(month_section_id(m), month_str, '\n'.join(u"""<li>
+""".format(month_section_id(m), month_str, '\n'.join(u"""<li{2}>
   <a href="#{1}">{0:0=2d}</a>
-</li>""".format(d, day_div_id(m, d)) for d in sorted(list(ds))))
+</li>""".format(
+  d, day_div_id(m, d), ' class="important"' if im else '') \
+  for (d, im) in sorted(list(ds))))
       month_lis.append(li_entry)
 
     return u"""

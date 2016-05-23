@@ -41,6 +41,7 @@ class DayStdEnv(StdEnv):
     super(DayStdEnv, self).__init__(raw, params, content, style_cls)
     self.content_blocks_list = []
     self.day = 0
+    self.important = False
 
   def _transform_args(self):
     from n0ted0wn.Block.Parser import Parser
@@ -48,6 +49,8 @@ class DayStdEnv(StdEnv):
       return None
     try:
       self.day = int(self._params.keys()[0])
+      self.important = len(self._params.keys()) > 1 and \
+        self._params.keys()[1] == '!'
     except ValueError:
       return None
     self.content_blocks_list = Parser(self.style_cls, 0).parse(self.content)
