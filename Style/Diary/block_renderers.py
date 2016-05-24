@@ -51,12 +51,15 @@ class RendererDay(RendererBase):
     return u"""
 <div class="day">
   <div class="circle"></div>
-  <span class="day-counter" id="{2}">{0}</span>
+  <span class="day-counter{3}" id="{2}">{0}</span>
   <div class="content">
     {1}
   </div>
 </div>""".format(\
-  obj.day, contents, day_div_id(month_day_counter.current_month(), obj.day))
+  obj.day,
+  contents,
+  day_div_id(month_day_counter.current_month(), obj.day),
+  ' important-day' if obj.important else '')
 
 class RendererHide(RendererBase):
   def _render(self, obj, storage, env_storage):
