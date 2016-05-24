@@ -27,7 +27,7 @@ class ColorStdEnv(StdEnv):
   def _transform_args(self):
     if not self._params:
       return None
-    self.color = self._params.keys()[0]
+    self.color = self._params[0]
     from n0ted0wn.Block.Parser import Parser
     self.blocks_list = Parser(self.style_cls, 0).parse(self.content)
     return self

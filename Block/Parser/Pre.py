@@ -60,5 +60,5 @@ class PreStdEnv(StdEnv):
 
   def _transform_args(self):
     if self._params:
-      self.lang = self._params.keys()[0]
+      self.lang = self._params[0]
     return self
