@@ -49,7 +49,7 @@ class DayStdEnv(StdEnv):
       return None
     try:
       self.day = int(self._params[0])
-      self.important = 'important' in self._params
+      self.important = '!' in self._params or 'important' in self._params
     except ValueError:
       return None
     self.content_blocks_list = Parser(self.style_cls, 0).parse(self.content)
