@@ -61,16 +61,6 @@ class RendererDay(RendererBase):
   day_div_id(month_day_counter.current_month(), obj.day),
   ' important-day' if obj.important else '')
 
-class RendererHide(RendererBase):
-  def _render(self, obj, storage, env_storage):
-    if env_storage.get_option(Option.DIARY_DISPLAY_HIDDEN):
-      from n0ted0wn.Block.Renderer import Renderer
-      block_renderer = Renderer(self.style_cls, storage, env_storage)
-      contents = block_renderer.render(obj.content_blocks_list)
-      return contents
-    else:
-      return u""
-
 class RendererTOC(RendererBase):
   def _render(self, obj, storage, env_storage):
     month_lis = []

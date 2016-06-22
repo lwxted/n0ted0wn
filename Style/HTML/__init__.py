@@ -10,6 +10,7 @@ from n0ted0wn.Block.Parser.DefinitionNoteWarn import \
   DefinitionStdEnv, NoteStdEnv, WarnStdEnv
 from n0ted0wn.Block.Parser.Emphasis import Emphasis
 from n0ted0wn.Block.Parser.Header import Header
+from n0ted0wn.Block.Parser.Hide import HideStdEnv
 from n0ted0wn.Block.Parser.Image import Image, ImageStdEnv
 from n0ted0wn.Block.Parser.Meta import Meta
 from n0ted0wn.Block.Parser.OrderedList import OrderedList, \
@@ -37,7 +38,7 @@ from n0ted0wn.Inline.Parser.Ruby import Ruby
 # Block renderers
 from n0ted0wn.Style.HTML.block_renderers import \
   RendererCenter, RendererColor, RendererDefinition, RendererEmphasis, \
-  RendererNote, RendererPre, RendererHeader, RendererImage, \
+  RendererNote, RendererPre, RendererHide, RendererHeader, RendererImage, \
   RendererMeta, RendererOrderedList, RendererParagraph, RendererSeparator, \
   RendererTrivial, RendererUnorderedList, RendererWarn, RendererTOC, \
   RendererTodoList
@@ -68,6 +69,7 @@ class StyleHTML(StyleBase):
 
   _block_inline_rules = [
     (Meta, [InlineParserBase]),
+    (HideStdEnv, None),
     (TOCStdEnv, None),
     (CenterStdEnv, None),
     (Header, None),
@@ -114,6 +116,7 @@ class StyleHTML(StyleBase):
     TOCStdEnv : RendererTOC,
     TodoList : RendererTodoList,
     TodoListStdEnv : RendererTodoList,
+    HideStdEnv : RendererHide,
   }
 
   _inline_renderers = {

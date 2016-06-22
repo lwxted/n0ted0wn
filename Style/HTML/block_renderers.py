@@ -262,3 +262,13 @@ class RendererTodoList(RendererBase):
         )
       li_markups.append(li_markup)
     return ul_markup.format('\n'.join(li_markups))
+
+class RendererHide(RendererBase):
+  def _render(self, obj, storage, env_storage):
+    if env_storage.get_option(Option.DIARY_DISPLAY_HIDDEN):
+      from n0ted0wn.Block.Renderer import Renderer
+      block_renderer = Renderer(self.style_cls, storage, env_storage)
+      contents = block_renderer.render(obj.content_blocks_list)
+      return contents
+    else:
+      return u""
