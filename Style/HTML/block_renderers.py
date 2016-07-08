@@ -19,12 +19,13 @@ class RendererPre(RendererBase):
 
 class RendererHeader(RendererBase):
   def _render(self, obj, storage, env_storage):
-    header_counter = env_storage.get(
-      Environment.CURRENT_HEADER_LEVEL, HeaderCounter())
-    header_counter.advance(obj.level)
-
-    toc = env_storage.get(Environment.TABLE_OF_CONTENTS, list())
-    toc.append((str(header_counter), obj))
+    # Only put to TOC if header is numbered
+    if obj.numbered:
+      header_counter = env_storage.get(
+        Environment.CURRENT_HEADER_LEVEL, HeaderCounter())
+      header_counter.advance(obj.level)
+      toc = env_storage.get(Environment.TABLE_OF_CONTENTS, list())
+      toc.append((str(header_counter), obj))
 
     counter_span = u"""<a class="counter-anchor" href="#{1}">
 <span class="counter section-counter">{0}</span></a> """\
@@ -37,7 +38,7 @@ class RendererHeader(RendererBase):
         obj.level + 1,
         counter_span,
         self._format_key(storage.insert(obj.title)),
-        header_id(str(header_counter), obj))
+        header_id(str(header_counter), obj) if obj.numbered else '')
 
 class RendererImage(RendererBase):
   def _render(self, obj, storage, env_storage):
