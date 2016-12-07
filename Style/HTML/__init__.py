@@ -16,7 +16,7 @@ from n0ted0wn.Block.Parser.Meta import Meta
 from n0ted0wn.Block.Parser.OrderedList import OrderedList, \
   OrderedListStdEnv
 from n0ted0wn.Block.Parser.Paragraph import Paragraph
-from n0ted0wn.Block.Parser.Pre import Pre, PreStdEnv
+from n0ted0wn.Block.Parser.Pre import Pre, PreStdEnv, PreAlgo, PreAlgoStdEnv
 from n0ted0wn.Block.Parser.Separator import Separator
 from n0ted0wn.Block.Parser.TOC import TOCStdEnv
 from n0ted0wn.Block.Parser.TodoList import TodoList, TodoListStdEnv
@@ -38,10 +38,10 @@ from n0ted0wn.Inline.Parser.Ruby import Ruby
 # Block renderers
 from n0ted0wn.Style.HTML.block_renderers import \
   RendererCenter, RendererColor, RendererDefinition, RendererEmphasis, \
-  RendererNote, RendererPre, RendererHide, RendererHeader, RendererImage, \
-  RendererMeta, RendererOrderedList, RendererParagraph, RendererSeparator, \
-  RendererTrivial, RendererUnorderedList, RendererWarn, RendererTOC, \
-  RendererTodoList
+  RendererNote, RendererPre, RendererPreAlgo, RendererHide, RendererHeader, \
+  RendererImage, RendererMeta, RendererOrderedList, RendererParagraph, \
+  RendererSeparator, RendererTrivial, RendererUnorderedList, RendererWarn, \
+  RendererTOC, RendererTodoList
 
 # Inline renderers
 from n0ted0wn.Style.HTML.inline_renderers import \
@@ -87,6 +87,8 @@ class StyleHTML(StyleBase):
     (UnorderedList, None),
     (Separator, [InlineParserBase]),
     (Pre, [InlineParserBase]),
+    (PreAlgo, [MathInline, InlineParserBase]),
+    (PreAlgoStdEnv, [MathInline, InlineParserBase]),
     (PreStdEnv, [InlineParserBase]),
     (Image, None),
     (ImageStdEnv, None),
@@ -101,6 +103,8 @@ class StyleHTML(StyleBase):
     UnorderedList : RendererUnorderedList,
     Pre : RendererPre,
     PreStdEnv : RendererPre,
+    PreAlgo : RendererPreAlgo,
+    PreAlgoStdEnv : RendererPreAlgo,
     Image : RendererImage,
     ImageStdEnv : RendererImage,
     Paragraph : RendererParagraph,

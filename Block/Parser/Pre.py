@@ -35,8 +35,12 @@ class Pre(Base):
     content = raw_stripped[first_line_break_index + 1:-4]
     if not content:
       return None
+    if lang == 'pseudo':
+      return PreAlgo(raw, lang, content, style_cls)
     return Pre(raw, lang, content, style_cls)
 
+class PreAlgo(Pre):
+  pass
 
 class PreStdEnv(StdEnv):
   """Implements parsing for the following block formats.
@@ -61,4 +65,13 @@ class PreStdEnv(StdEnv):
   def _transform_args(self):
     if self._params:
       self.lang = self._params[0]
+    if self.lang == 'pseudo':
+      return PreAlgoStdEnv(self.raw, self._params, self.content, self.style_cls)
     return self
+
+class PreAlgoStdEnv(PreStdEnv):
+  _block_type = 'pre'
+
+  def __init__(self, raw, params, content, style_cls):
+    super(PreAlgoStdEnv, self).__init__(raw, params, content, style_cls)
+    self.lang = self._params[0]

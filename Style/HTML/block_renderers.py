@@ -12,7 +12,13 @@ def header_id(header_counter_str, header_obj):
 
 class RendererPre(RendererBase):
   def _render(self, obj, storage, env_storage):
-    class_str = u' class={0}'.format(obj.lang) if obj.lang == 'pseudo' else ''
+    lang = u' lang="{0}"'.format(obj.lang) if obj.lang else ''
+    return u"""<pre{0}><code>{1}</code></pre>"""\
+      .format(lang, self._format_key(storage.insert(obj.content)))
+
+class RendererPreAlgo(RendererBase):
+  def _render(self, obj, storage, env_storage):
+    class_str = u' class={0}'.format(obj.lang)
     lang = u' lang="{0}"'.format(obj.lang) if obj.lang else ''
     return u"""<pre{0}{1}><code>{2}</code></pre>"""\
       .format(lang, class_str, self._format_key(storage.insert(obj.content)))
