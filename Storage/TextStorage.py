@@ -6,8 +6,10 @@ from n0ted0wn.Util import Util
 class TextStorage(object):
   """Temporary storage for text."""
 
-  __data = {}
-  __next_index = 0
+  def __init__(self):
+    super(TextStorage, self).__init__()
+    self.__data = {}
+    self.__next_index = 0
 
   def get(self, index):
     assert index in self.__data
