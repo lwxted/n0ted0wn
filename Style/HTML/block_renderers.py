@@ -68,15 +68,21 @@ class RendererImage(RendererBase):
     </div>""".format(figure_counter_span, caption_span) \
       if figure_counter_span or caption_span else ''
 
+    img_center = u' style="margin: 0 auto;"' if obj.center else ''
+
+    img_width = u' width="{}"'.format(obj.width) if obj.width else ''
+
     return u"""
   <div class="figure clearfix">
     <div class="img clearfix">
-      <img src="{0}" alt="{1}" />
+      <img src="{0}" alt="{1}"{3}{4} />
     </div>{2}
   </div>""".format(
       obj.image_url,
       Util.html_attribute(obj.alt_caption),
-      caption_div)
+      caption_div,
+      img_center,
+      img_width)
 
 class RendererOrderedList(RendererBase):
   def _render(self, obj, storage, env_storage):

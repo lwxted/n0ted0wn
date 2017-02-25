@@ -51,6 +51,12 @@ class ImageStdEnv(StdEnv):
      path/to/image.png
      Description that must fit into one line.
      {img}
+
+  4. Specify the width / position of the image.
+     {img:width=200:center}
+     path/to/image.png
+     Description that must fit into one line.
+     {img}
   """
 
   _block_type = 'img'
@@ -61,6 +67,8 @@ class ImageStdEnv(StdEnv):
     self.alt_caption = ''
     self.description = ''
     self.numbered = True
+    self.width = ''
+    self.center = False
 
   def _transform_args(self):
     lines = self.content.split('\n')
@@ -78,5 +86,14 @@ class ImageStdEnv(StdEnv):
       self.image_url = lines[0][5:]
       self.alt_caption = lines[1][5:]
       self.description = lines[2][6:]
-    self.numbered = 'no#' not in self._params
+
+    for item in self._params:
+      if item == 'no#':
+        self.numbered = False
+      elif item == 'center':
+        self.center = True
+      elif isinstance(item, tuple):
+        if item[0] == 'width':
+          self.width = item[1]
+
     return self
